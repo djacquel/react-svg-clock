@@ -1,6 +1,7 @@
 import React from 'react';
 import ClockDefs from './ClockDefs';
 import ClockBackground from './ClockBackground';
+import ClockPointer from './ClockPointer';
 
 export default class Clock extends React.Component {
 
@@ -12,7 +13,7 @@ export default class Clock extends React.Component {
     clockRadius: React.PropTypes.number.isRequired,
   }
 
-  state = { isStopped: true }
+  state = { isStarted: false, time: new Date("24 Dec 1966 00:00:00 +0100") }
 
   constructor(props) {
     super(props);
@@ -20,6 +21,8 @@ export default class Clock extends React.Component {
 
   render() {
     var p = this.props;
+    var t = this.state.time;
+
     var viewBox = '0 0 ' + p.svgWidth + ' ' + p.svgHeight;
     var clockDiameter = p.clockRadius * 2;
     var centerOffset = (p.svgWidth - clockDiameter)/2;
@@ -32,6 +35,10 @@ export default class Clock extends React.Component {
         <g id="clock" transform={'translate(' + centerOffset + ',' + centerOffset + ')'}>
           <ClockDefs clockRadius={p.clockRadius} />
           <ClockBackground clockRadius={p.clockRadius} />
+          <ClockPointer type='hour' time={t} clockRadius={p.clockRadius} />
+          <ClockPointer type='min' time={t} clockRadius={p.clockRadius} />
+          <ClockPointer type='sec' time={t} clockRadius={p.clockRadius} />
+          <use xlinkHref='#clockCenter' />
           <text x="10" y="15" children={buttonLabel} />
         </g>
       </svg>
@@ -42,7 +49,7 @@ export default class Clock extends React.Component {
 
   startStop = (event) => {
     console.log('clicked');
-    this.setState({ isStopped: !this.state.isStopped });
+    this.setState({ isStarted: !this.state.isStarted });
   };
 
 }

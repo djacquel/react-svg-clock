@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ClockMarks from './ClockMarks';
 
-const ClockBackground = ({clockRadius=75}) => (
+const ClockBackground = ({clockRadius}) => (
   <g>
     <use xlinkHref='#clockBorder' />
     <ClockMarks clockRadius={clockRadius} />
