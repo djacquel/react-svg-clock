@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default () => <div>Learn Webpack</div>;
+export default () => <li key={note.id}>{note.task}</li>;

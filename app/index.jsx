@@ -1,7 +1,8 @@
+"use strict";
 import './main.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.jsx';
+import Clock from './components/Clock.jsx';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<Clock />, document.getElementById('app'));
