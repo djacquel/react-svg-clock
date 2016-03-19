@@ -5,17 +5,18 @@ body {
   svg{
     border: 1px solid red;
     background: black;
-    width: 350px;
-    height: 350px;
+    width: 450px;
+    height: 450px;
     fill: black;
     fill-opacity: 1;
     stroke:none;
-    font-size: 10px;
+    font-size: 14px;
+    font-family: sans-serif;
   }
 
   svg text{
     stroke: none;
-    fill: red;
+    fill: white;
   }
 
   svg rect{
@@ -57,21 +58,27 @@ body {
     fill: red;
   }
 
-  svg .buttons{
-    stroke: green;
-  }
-
   svg .button{
     fill: black;
     stroke: white;
   }
 
-  svg .button.startStop{
+  svg .button.start{
     fill: green;
     stroke: white;
   }
+  svg .button.stop{
+    fill: red;
+    stroke: white;
+  }
 
-  svg .button:hover{
+  svg .buttonGroup:hover .button{
     stroke: yellow;
+  }
+  svg .buttonGroup:hover .buttonText{
+    fill: yellow;
+  }
+
+  svg .buttonGroup{
     cursor: pointer;
   }
