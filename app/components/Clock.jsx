@@ -3,6 +3,7 @@ import ClockDefs from './ClockDefs';
 import ClockBackground from './ClockBackground';
 import ClockPointer from './ClockPointer';
 import ClockButton from './ClockButton';
+import ClockLaps from './ClockLaps';
 
 export default class Clock extends React.Component {
 
@@ -14,17 +15,24 @@ export default class Clock extends React.Component {
     clockRadius: React.PropTypes.number.isRequired,
   }
 
-  state = { isStarted: false, laps: [] }
+  initialState = {
+    isStarted: false,
+    timeTs: 2674800000,
+    newTimeTs: 2674800000,
+    laps: []
+  }
+
+  TICK = 100;
 
   // keep track of setInterval in order to clearInterval
   tickerId;
 
   constructor(props) {
     super(props);
-  }
+    this.state = this.initialState;
 
-  componentWillMount(){
-    this.reset();
+    var zero = new Date(1970, 1, 1, 0, 0, 0, 0);
+    console.log("zero is" + zero.getTime());
   }
 
   render() {
@@ -49,10 +57,9 @@ export default class Clock extends React.Component {
           <use xlinkHref='#clockCenter' />
           <ClockButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className="button startStop" clockRadius={p.clockRadius} order='1' />
           <ClockButton text={this.state.isStarted == true ? 'Lap':'Reset'} onClick={this.lapReset} className="button lapreset" clockRadius={p.clockRadius} order='2' />
+          <ClockLaps laps={this.state.laps} />
         </g>
       </svg>
-      <p>timeTs : {this.state.timeTs}</p>
-      <p>newTimeTs : {this.state.newTimeTs}</p>
     </div>
     );
   }
@@ -67,7 +74,7 @@ export default class Clock extends React.Component {
       });
       this.tickerId = setInterval(
         this.tick,
-        1000
+        this.TICK
       );
     }else if( this.state.isStarted == true ){
       this.setState({
@@ -79,17 +86,16 @@ export default class Clock extends React.Component {
   }
 
   lapReset = (event) => {
-
     if ( this.state.isStarted == false ){
       console.log("RESET");
       this.reset();
-      this.render();
     }else if( this.state.isStarted == true ){
       console.log("LAP");
+      var lapNumber = this.state.laps.length;
       this.setState({
         laps: this.state.laps.concat([{
-          id: this.state.newTimeTs,
-          time: this.state.newTimeTs
+          id: ++lapNumber,
+          ts: this.state.newTimeTs
         }])
       });
     }
@@ -110,23 +116,7 @@ export default class Clock extends React.Component {
 
   reset = () => {
     console.log("RESET");
-    var dateZero = new Date();
-    dateZero.setHours(0)
-    dateZero.setMinutes(0);
-    dateZero.setSeconds(0);
-    dateZero.setMilliseconds(0);
-    var timeTs = dateZero.getTime();
-
-/*    if (this.isMounted) {*/
-      this.setState({
-        timeTs: timeTs,
-        newTimeTs: timeTs
-      });
-/*    }else{
-      this.state.timeTs = timeTs;
-      this.state.newTimeTs = timeTs;
-    }*/
-
+    this.setState( this.initialState );
   }
 
 }
