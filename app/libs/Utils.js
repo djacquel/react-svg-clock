@@ -4,11 +4,12 @@
 
 var Utils = {
 
-  getRotation: function( time, type ){
+  getRotation: function( timeTs, type ){
 
-    var hour  = time.getHours();
-    var min   = time.getMinutes();
-    var sec   = time.getSeconds();
+    var time = new Date(timeTs);
+    var hour = time.getHours();
+    var min  = time.getMinutes();
+    var sec  = time.getSeconds();
 
     switch (type) {
       case 'hour':
