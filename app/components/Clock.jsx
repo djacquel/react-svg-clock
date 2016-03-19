@@ -7,7 +7,7 @@ import ClockLaps from './ClockLaps';
 
 export default class Clock extends React.Component {
 
-  static defaultProps = { svgWidth: 200, svgHeight: 300, clockRadius: 75 }
+  static defaultProps = { svgWidth: 200, svgHeight: 250, clockRadius: 75 }
 
   static propTypes = {
     svgWidth: React.PropTypes.number.isRequired,
@@ -15,24 +15,14 @@ export default class Clock extends React.Component {
     clockRadius: React.PropTypes.number.isRequired,
   }
 
-  initialState = {
-    isStarted: false,
-    timeTs: 2674800000,
-    newTimeTs: 2674800000,
-    laps: []
-  }
-
-  TICK = 100;
+  TICK = 1000;
 
   // keep track of setInterval in order to clearInterval
   tickerId;
 
   constructor(props) {
     super(props);
-    this.state = this.initialState;
-
-    var zero = new Date(1970, 1, 1, 0, 0, 0, 0);
-    console.log("zero is" + zero.getTime());
+    this.state = this._getInitialState();
   }
 
   render() {
@@ -55,8 +45,8 @@ export default class Clock extends React.Component {
           <ClockPointer type='min' timeTs={timeTs} clockRadius={p.clockRadius} />
           <ClockPointer type='sec' timeTs={timeTs} clockRadius={p.clockRadius} />
           <use xlinkHref='#clockCenter' />
-          <ClockButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className="button startStop" clockRadius={p.clockRadius} order='1' />
-          <ClockButton text={this.state.isStarted == true ? 'Lap':'Reset'} onClick={this.lapReset} className="button lapreset" clockRadius={p.clockRadius} order='2' />
+          <ClockButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className={this.state.isStarted == false ? 'start':'stop'} clockRadius={p.clockRadius} order='1' />
+          <ClockButton text={this.state.isStarted == true ? 'Lap':'Reset'} onClick={this.lapReset} clockRadius={p.clockRadius} order='2' />
           <ClockLaps laps={this.state.laps} />
         </g>
       </svg>
@@ -114,9 +104,24 @@ export default class Clock extends React.Component {
     this.setState({newTimeTs: newTimeTs});
   }
 
+// not getInitialState but _getInitialState
+// because we are not suposed to set such a method on a plain js class
+_getInitialState = () => {
+    // building a 00:00:00 date
+    var zero = new Date(1970, 1, 1, 0, 0, 0, 0);
+    var zeroTs = zero.getTime()
+    var initialState = {
+      isStarted: false,
+      laps: [],
+      timeTs: zeroTs,
+      newTimeTs: zeroTs
+    }
+    return initialState;
+}
+
   reset = () => {
     console.log("RESET");
-    this.setState( this.initialState );
+    this.setState( this._getInitialState() );
   }
 
 }
