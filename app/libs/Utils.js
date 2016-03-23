@@ -40,11 +40,9 @@ var Utils = {
         throw "Please provide type = hour, min or sec";
         break;
     }
-
     return rotation;
   }
 
 }
-
 
 export default Utils;
