@@ -7,7 +7,7 @@ import ClockLaps from './ClockLaps';
 
 export default class Clock extends React.Component {
 
-  static defaultProps = { svgWidth: 200, svgHeight: 250, clockRadius: 75 }
+  static defaultProps = { svgWidth: 200, svgHeight: 280, clockRadius: 75 }
 
   static propTypes = {
     svgWidth: React.PropTypes.number.isRequired,
@@ -46,7 +46,8 @@ export default class Clock extends React.Component {
           <ClockPointer type='sec' timeTs={timeTs} clockRadius={p.clockRadius} />
           <use xlinkHref='#clockCenter' />
           <ClockButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className={this.state.isStarted == false ? 'start':'stop'} clockRadius={p.clockRadius} order='1' />
-          <ClockButton text={this.state.isStarted == true ? 'Lap':'Reset'} onClick={this.lapReset} clockRadius={p.clockRadius} order='2' />
+          <ClockButton text='Set time' onClick={this.setTime} clockRadius={p.clockRadius} order='2' />
+          <ClockButton text={this.state.isStarted == true ? 'Lap':'Reset'} onClick={this.lapReset} clockRadius={p.clockRadius} order='3' />
           <ClockLaps laps={this.state.laps} />
         </g>
       </svg>
@@ -73,6 +74,10 @@ export default class Clock extends React.Component {
       });
       clearInterval(this.tickerId);
     }
+  }
+
+  setTime = (event) => {
+    console.log('setTime');
   }
 
   lapReset = (event) => {
