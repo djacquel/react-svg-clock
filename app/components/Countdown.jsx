@@ -4,9 +4,8 @@ import ClockDefs from './ClockDefs';
 import ClockBackground from './ClockBackground';
 import ClockPointer from './ClockPointer';
 import ClockButton from './ClockButton';
-import ClockLaps from './ClockLaps';
 
-export default class Clock extends React.Component {
+export default class Countdown extends React.Component {
 
   static defaultProps = { svgWidth: 200, svgHeight: 280, clockRadius: 75 }
 
@@ -39,7 +38,7 @@ export default class Clock extends React.Component {
     return (
     <div>
       <TopMenu />
-      <h2>Stop Watch</h2>
+      <h2>Countdown</h2>
       <svg viewBox={viewBox}>
         <g id="clock" transform={'translate(' + centerOffset + ',' + centerOffset + ')'}>
           <ClockDefs clockRadius={p.clockRadius} />
@@ -50,8 +49,6 @@ export default class Clock extends React.Component {
           <use xlinkHref='#clockCenter' />
           <ClockButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className={this.state.isStarted == false ? 'start':'stop'} clockRadius={p.clockRadius} order='1' />
           <ClockButton text='Set time' onClick={this.setTime} clockRadius={p.clockRadius} order='2' />
-          <ClockButton text={this.state.isStarted == true ? 'Lap':'Reset'} onClick={this.lapReset} clockRadius={p.clockRadius} order='3' />
-          <ClockLaps laps={this.state.laps} />
         </g>
       </svg>
     </div>
