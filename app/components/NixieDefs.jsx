@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const NixiesDefs = () => (
+const NixiesDefs = ({clockWidth}) => (
   <defs>
     <filter id="glowing" filterUnits="userSpaceOnUse" x="0" y="0" width="200" height="120">
       <feGaussianBlur stdDeviation="2" result="blur"/>
@@ -19,7 +19,7 @@ const NixiesDefs = () => (
     </filter>
 
     <pattern id="gridPattern" x="0" y="0" width="7" height="4" patternUnits="userSpaceOnUse">
-      <path d="M 7.4,2.1 4.9,2.1 3.7,4.1 1.4,4.1 0.11,2.1 1.4,0.03 3.7,0.03 4.9,2.1" class="gridElement" />
+      <path d="M 7.4,2.1 4.9,2.1 3.7,4.1 1.4,4.1 0.11,2.1 1.4,0.03 3.7,0.03 4.9,2.1" className="gridElement" />
     </pattern>
 
     <path d="M 23,3.6 C 48,3.6 48,74 23,74 -1.7,74 -1.7,3.6 23,3.6 Z" id="d0"   />
@@ -33,13 +33,18 @@ const NixiesDefs = () => (
     <path d="M 23,3.6 C 43,3.6 43,34 23,34 50,34 50,74 23,74 -3.7,74 -3.7,34 23,34 3.2,34 3.2,3.6 23,3.6 Z" id="d8" />
     <path d="M 41,38 C -0.36,65 -8.7,3.6 24,3.6 49,3.6 48,62 19,74" id="d9" />
 
+    <g id="separator">
+      <path d="M 5,20 5,30" className='glowing' />
+      <path d="M 5,50 5,60" className='glowing' />
+    </g>
+
     <rect fill="url(#gridPattern)" x="0" y="0" width="47" height="80" id="grid" />
   </defs>
 
 );
 
-ClockDefs.PropTypes = {
-    clockRadius: PropTypes.number.isRequired
+NixiesDefs.PropTypes = {
+    clockWidth: PropTypes.number.isRequired
 }
 
-export default ClockDefs;
+export default NixiesDefs;
