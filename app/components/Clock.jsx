@@ -16,7 +16,7 @@ export default class Clock extends React.Component {
     clockRadius: React.PropTypes.number.isRequired,
   }
 
-  TICK = 1000;
+  TICK = 100;
 
   // keep track of setInterval in order to clearInterval
   tickerId;
@@ -28,18 +28,16 @@ export default class Clock extends React.Component {
 
   render() {
     var p = this.props;
-    var timeTs = this.state.newTimeTs;
+    var timeTs = this.state.timeTs;
 
     var viewBox = '0 0 ' + p.svgWidth + ' ' + p.svgHeight;
     var clockDiameter = p.clockRadius * 2;
     var centerOffset = (p.svgWidth - clockDiameter)/2;
 
-    var buttonLabel = "Clock isStopped " + (this.state.isStopped === true ? 'yes' : 'no');
-
     return (
     <div>
       <TopMenu />
-      <h2>Stop Watch</h2>
+      <h2>Clock</h2>
       <svg viewBox={viewBox}>
         <g id="clock" transform={'translate(' + centerOffset + ',' + centerOffset + ')'}>
           <ClockDefs clockRadius={p.clockRadius} />
@@ -48,88 +46,39 @@ export default class Clock extends React.Component {
           <ClockPointer type='min' timeTs={timeTs} clockRadius={p.clockRadius} />
           <ClockPointer type='sec' timeTs={timeTs} clockRadius={p.clockRadius} />
           <use xlinkHref='#clockCenter' />
-          <ClockButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className={this.state.isStarted == false ? 'start':'stop'} clockRadius={p.clockRadius} order='1' />
-          <ClockButton text='Set time' onClick={this.setTime} clockRadius={p.clockRadius} order='2' />
-          <ClockButton text={this.state.isStarted == true ? 'Lap':'Reset'} onClick={this.lapReset} clockRadius={p.clockRadius} order='3' />
-          <ClockLaps laps={this.state.laps} />
         </g>
       </svg>
     </div>
     );
   }
 
-  startStop = (event) => {
-    if ( this.state.isStarted == false ){
-      var start = new Date();
-      var startTs = start.getTime();
-      this.setState({
-        isStarted: !this.state.isStarted,
-        startTs: startTs
-      });
+  componentDidMount() {
+    this.start();
+  }
+
+  // not getInitialState but _getInitialState
+  // because we are not suposed to set such a method on a plain js class
+  _getInitialState = () => {
+      var time = new Date();
+      var timeTs = time.getTime()
+      var initialState = {
+        timeTs: timeTs
+      }
+      return initialState;
+  }
+
+
+  start = () => {
       this.tickerId = setInterval(
         this.tick,
         this.TICK
       );
-    }else if( this.state.isStarted == true ){
-      this.setState({
-        isStarted: !this.state.isStarted,
-        timeTs: this.state.newTimeTs
-      });
-      clearInterval(this.tickerId);
-    }
-  }
-
-  setTime = (event) => {
-    console.log('setTime');
-  }
-
-  lapReset = (event) => {
-    if ( this.state.isStarted == false ){
-      console.log("RESET");
-      this.reset();
-    }else if( this.state.isStarted == true ){
-      console.log("LAP");
-      var lapNumber = this.state.laps.length;
-      this.setState({
-        laps: this.state.laps.concat([{
-          id: ++lapNumber,
-          ts: this.state.newTimeTs
-        }])
-      });
-    }
   }
 
   tick = () => {
-    var timeTs = this.state.timeTs;
-    console.log ("Thick !" + timeTs);
-    var startTs = this.state.startTs;
-    var now = new Date();
-    var nowTs = now.getTime();
-    //console.log("timeTs = " + timeTs +" startTs = " + startTs + " nowTs = " + nowTs);
-    var elapsed = nowTs - startTs;
-    var newTimeTs = timeTs + elapsed;
-    //console.log("elapsed = " + elapsed + " newTime = " + newTime);
-    this.setState({newTimeTs: newTimeTs});
-  }
-
-// not getInitialState but _getInitialState
-// because we are not suposed to set such a method on a plain js class
-_getInitialState = () => {
-    // building a 00:00:00 date
-    var zero = new Date(1970, 1, 1, 0, 0, 0, 0);
-    var zeroTs = zero.getTime()
-    var initialState = {
-      isStarted: false,
-      laps: [],
-      timeTs: zeroTs,
-      newTimeTs: zeroTs
-    }
-    return initialState;
-}
-
-  reset = () => {
-    console.log("RESET");
-    this.setState( this._getInitialState() );
+    var time = new Date();
+    var timeTs = time.getTime();
+    this.setState({ timeTs: timeTs });
   }
 
 }
