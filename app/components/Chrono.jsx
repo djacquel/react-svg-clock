@@ -1,5 +1,3 @@
-import '../clock.css';
-
 import React from 'react';
 import TopMenu from './TopMenu';
 import ClockDefs from './ClockDefs';
@@ -36,13 +34,11 @@ export default class Chrono extends React.Component {
     var clockDiameter = p.clockRadius * 2;
     var centerOffset = (p.svgWidth - clockDiameter)/2;
 
-    var buttonLabel = "Clock isStopped " + (this.state.isStopped === true ? 'yes' : 'no');
-
     return (
     <div>
       <TopMenu />
       <h2>Chrono</h2>
-      <svg viewBox={viewBox}>
+      <svg viewBox={viewBox} className="clock">
         <g id="clock" transform={'translate(' + centerOffset + ',' + centerOffset + ')'}>
           <ClockDefs clockRadius={p.clockRadius} />
           <ClockBackground clockRadius={p.clockRadius} />
@@ -51,13 +47,16 @@ export default class Chrono extends React.Component {
           <ClockPointer type='sec' timeTs={timeTs} clockRadius={p.clockRadius} />
           <use xlinkHref='#clockCenter' />
           <ClockButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className={this.state.isStarted == false ? 'start':'stop'} clockRadius={p.clockRadius} order='1' />
-          <ClockButton text='Set time' onClick={this.setTime} clockRadius={p.clockRadius} order='2' />
-          <ClockButton text={this.state.isStarted == true ? 'Lap':'Reset'} onClick={this.lapReset} clockRadius={p.clockRadius} order='3' />
+          <ClockButton text={this.state.isStarted == true ? 'Lap':'Reset'} onClick={this.lapReset} clockRadius={p.clockRadius} order='2' />
           <ClockLaps laps={this.state.laps} />
         </g>
       </svg>
     </div>
     );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.tickerId);
   }
 
   startStop = (event) => {

@@ -1,5 +1,3 @@
-import '../clock.css';
-
 import React from 'react';
 import TopMenu from './TopMenu';
 import ClockDefs from './ClockDefs';
@@ -10,7 +8,7 @@ import ClockLaps from './ClockLaps';
 
 export default class Clock extends React.Component {
 
-  static defaultProps = { svgWidth: 200, svgHeight: 280, clockRadius: 75 }
+  static defaultProps = { svgWidth: 200, svgHeight: 200, clockRadius: 75 }
 
   static propTypes = {
     svgWidth: React.PropTypes.number.isRequired,
@@ -40,7 +38,7 @@ export default class Clock extends React.Component {
     <div>
       <TopMenu />
       <h2>Clock</h2>
-      <svg viewBox={viewBox}>
+      <svg viewBox={viewBox} className="clock">
         <g id="clock" transform={'translate(' + centerOffset + ',' + centerOffset + ')'}>
           <ClockDefs clockRadius={p.clockRadius} />
           <ClockBackground clockRadius={p.clockRadius} />
@@ -52,6 +50,10 @@ export default class Clock extends React.Component {
       </svg>
     </div>
     );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.tickerId);
   }
 
   componentDidMount() {
