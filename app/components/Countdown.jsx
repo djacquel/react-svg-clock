@@ -1,3 +1,5 @@
+import '../nixie.css';
+
 import React from 'react';
 import TopMenu from './TopMenu';
 import ClockDefs from './ClockDefs';

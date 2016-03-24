@@ -1,0 +1,28 @@
+  svg{
+    border: 1px solid green;
+    width: 350px;
+    height: 350px;
+    stroke-width: 1px;
+  }
+
+  .digit{
+    fill: none;
+    stroke-width: 1px;
+    stroke:#ccc;
+    stroke-opacity: 0.5;
+  }
+
+  .glowing{
+    fill:none;
+    stroke:#fac400;
+    stroke-width:4;
+    stroke-opacity: 1;
+    filter:url(#glowing);
+  }
+
+  .gridElement{
+    fill:none;
+    stroke:#aaa;
+    stroke-width:0.2;
+    stroke-opacity: 1;
+  }
