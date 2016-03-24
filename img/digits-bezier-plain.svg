@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg2"
+   viewBox="0 0 286.84303 213.45885"
+   height="60.242832mm"
+   width="80.953476mm">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-32.790165,-74.115691)"
+     id="layer1">
+    <path
+       id="path4243"
+       d="m 88.271459,76.552601 -6.92278,13.712933 C 53.256534,102.0652 33.313723,125.99312 33.290213,176.6547 c -0.02351,50.66157 8.556702,68.74149 48.493058,93.42385 l 6.213908,14.07558 3.897977,-13.17503 c 39.955204,-20.946 52.245314,-62.47505 51.978354,-97.544 -0.26697,-35.06894 -8.26578,-63.55371 -49.388142,-82.806915 z"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       id="path4245"
+       d="m 175.80498,75.039994 -3.149,6.000184 -2.40615,199.496372 3.45544,4.10932 3.10928,-3.98027 2.93099,-200.496404 z"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       id="path4247"
+       d="m 206.72659,145.7893 c 0,0 4.69558,-50.796148 51.20625,-54.612386 l 5.13924,-11.698442 5.92527,12.721242 c 36.16461,3.850278 43.4338,34.956016 43.4338,34.956016 0,0 8.39759,40.84742 -31.0805,50.89327 -75.70614,17.85601 -74.4469,92.02794 -74.4469,92.02794 l 51.26103,-0.33375 6.10278,16.28827 5.05472,-16.27132 50.30168,-0.92966"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+  </g>
+</svg>
