@@ -1,0 +1,121 @@
+body {
+  background: #000;
+  color: #ddd;
+}
+
+
+.button{
+  fill: black;
+  stroke: white;
+}
+
+.button.start{
+  fill: green;
+  stroke: white;
+}
+.button.stop{
+  fill: red;
+  stroke: white;
+}
+
+.buttonGroup:hover .button{
+  stroke: yellow;
+}
+.buttonGroup:hover .buttonText{
+  fill: yellow;
+}
+
+.buttonGroup{
+  cursor: pointer;
+}
+
+text{
+  stroke: none;
+  fill: white;
+  font-size: 14;
+  font-family: sans-serif;
+}
+
+.clock{
+
+  border: 1px solid white;
+  background: black;
+  width: 300px;
+  height: 450px;
+  fill: black;
+  fill-opacity: 1;
+  stroke:none;
+
+  .background{
+    stroke: white;
+  }
+
+  .center{
+    fill: black;
+  }
+
+  .mark{
+    stroke: none;
+    fill: yellow;
+  }
+
+  .hourPointer,
+  .minPointer,
+  .secPointer{
+    stroke: none;
+    fill-opacity: 1;
+  }
+
+  .hourPointer{
+    fill: white;
+    stroke: black;
+  }
+
+  .minPointer{
+    fill: white;
+    stroke: black;
+  }
+
+  .secPointer{
+    fill: red;
+  }
+
+}
+
+// nixie styles
+.chrono{
+
+  border: none;
+  width: 400px;
+  height: 500px;
+  stroke-width: 1px;
+
+  .nixieBackground{
+    stroke-width: 1px;
+    stroke: none;
+    stroke-opacity: 1;
+  }
+
+  .digit{
+    fill: none;
+    stroke-width: 1px;
+    stroke:#ccc;
+    stroke-opacity: 0.5;
+  }
+
+  .glowing{
+    fill:none;
+    stroke:#fac400;
+    stroke-width:4;
+    stroke-opacity: 1;
+    // filter:url(#glowing);
+  }
+
+  .gridElement{
+    fill:none;
+    stroke:#aaa;
+    stroke-width:0.2;
+    stroke-opacity: 1;
+  }
+
+}
