@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 
-const NixieSeparator = ({nixieId, elementPositionX}) => (
-    <g key={nixieId} transform={"translate("+elementPositionX+")"}>
+const NixieSeparator = ({key, elementPositionX}) => (
+    <g key={key} transform={"translate("+elementPositionX+")"}>
         <use xlinkHref='#separator' />
     </g>
 )
 
 NixieSeparator.PropTypes = {
-    nixieId: PropTypes.string.isRequired,
+    nixieId: PropTypes.number.isRequired,
     elementPositionX: PropTypes.number.isRequired
 }
 
