@@ -3,6 +3,7 @@ import TopMenu from './common/TopMenu';
 import NixieDefs from './nixie/NixieDefs';
 import NixieBackground from './nixie/NixieBackground';
 import NixieNixies from './nixie/NixieNixies';
+import NixieEdit from './nixie/NixieEdit';
 import NixieButton from './nixie/NixieButton';
 import Utils from '../libs/Utils';
 
@@ -51,8 +52,12 @@ export default class Countdown extends React.Component {
           <NixieDefs clockWidth={clockWith} />
           <NixieBackground clockWidth={clockWith} />
           <NixieNixies clockWidth={clockWith} withTenth={p.withTenth} newRemainTs={newRemainTs} />
-          <NixieButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className={this.state.isStarted == false ? 'start':'stop'} clockWith={clockWith} order='1' />
-          <NixieButton text='Set time' onClick={this.setTime} clockWith={clockWith} order='2' />
+          { this.state.isEditing ?
+              <NixieEdit remainTs={this.state.remainTs} onChange={this.editTime} clockWith={clockWith} order='1' />
+              :
+              <NixieButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className={this.state.isStarted == false ? 'start':'stop'} clockWith={clockWith} order='1' />
+          }
+          <NixieButton text={this.state.isEditing == false ? 'Set time':'Save time'} onClick={this.setSaveTime} clockWith={clockWith} order='2' />
         </g>
       </svg>
     </div>
@@ -71,7 +76,7 @@ export default class Countdown extends React.Component {
     var start = new Date();
     var startTs = start.getTime();
     this.setState({
-      isStarted: !this.state.isStarted,
+      isStarted: true,
       startTs: startTs
     });
 
@@ -89,15 +94,34 @@ export default class Countdown extends React.Component {
 
   _stop = () => {
     this.setState({
-      isStarted: !this.state.isStarted,
+      isStarted: false,
       remainTs: this.state.newRemainTs
     });
     clearInterval(this.tickerId);
     console.log(this.state)
   }
 
-  setTime = (event) => {
+  setSaveTime = (event) => {
+    if ( this.state.isEditing == false ) {
+      this._setTime();
+    }else if( this.state.isEditing == true ){
+      this._saveTime();
+    }
+  }
+
+  _setTime = () => {
+    this._stop();
+    this.setState({
+      isEditing: true
+    });
     console.log('setTime');
+  }
+
+  _saveTime = () => {
+    this.setState({
+      isEditing: false
+    });
+    console.log('saveTime');
   }
 
   tick = () => {
@@ -110,6 +134,9 @@ export default class Countdown extends React.Component {
 
     // check if we reached zero time
     if( newRemainTs <= s.zeroTs ){
+      this.setState({
+        newRemainTs: this.state.zeroTs
+      });
       this._stop();
       this._beep();
     }
@@ -130,6 +157,7 @@ export default class Countdown extends React.Component {
 
       var initialState = {
         isStarted: false,
+        isEditing: false,
         zeroTs: zeroTs,
         remainTs: startTs,
         newRemainTs: startTs
