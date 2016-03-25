@@ -46,7 +46,7 @@ var Utils = {
   // returns a timestamp for given hour
   // this depends on the computer's TZ settings
   getTimeStamp: function( h, m, s ) {
-    var date = new Date(0, 0, 0, h, m, s);
+    var date = new Date(1970, 1, 1, h, m, s);
     return date.getTime();
   },
 
