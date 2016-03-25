@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Utils from '../../libs/Utils'
+import Utils from '../../libs/Utils';
 
 const ClockPointer = ({type, timeTs, clockRadius}) => {
 
