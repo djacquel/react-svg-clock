@@ -4,8 +4,6 @@ import NixieSeparator from './NixieSeparator';
 
 const NixieNixies = ({clockWidth, withTenth, newRemainTs}) => {
 
-    console.log("NixieNixies received newRemainTs = " + newRemainTs);
-
     var time    = new Date(newRemainTs);
     var nixieWith = 50;
     var separatorWidth = 10;
@@ -19,45 +17,37 @@ const NixieNixies = ({clockWidth, withTenth, newRemainTs}) => {
 
     if (withTenth == true) {
         var millisec = time.getMilliseconds();
-        var tenth    = millisec/10;
+        var tenth    = Math.floor(millisec/10);
         var tenthStr = tenth < 10 ? "0" + tenth : tenth;
         timeStr = timeStr + ":" + tenthStr;
     }
 
-//    timeStr = "12:34:56:78";
+    // console.log("NixieNixies : timeStr = " + timeStr);
 
-    console.log("NixieNixies : timeStr = " + timeStr);
-
-    var nixies = [];
+    var nixiesArr = [];
 
     for (var i = 0; i < timeStr.length; i++) {
         var code = timeStr.charAt(i);
         var type;
         var elementIndex = i+1;
         var elementKey;
-        // console.log("Char " + code + " at pos " + i + " (elementIndex = " + elementIndex + ")");
+        // console.log(i + "= " + code + " (elementIndex = " + elementIndex + ")");
 
         if ( isNaN(code) ) {
-            // console.log("before separator elementPositionX = " + elementPositionX);
-            elementKey = "separator" + elementIndex;
-            nixies.push(<NixieSeparator nixieId={elementKey} elementPositionX={elementPositionX} />);
+            nixiesArr.push(<NixieSeparator key={elementIndex} elementPositionX={elementPositionX} />);
             elementPositionX += (gutter*2 + separatorWidth);
         } else {
-            // console.log("before nixie elementPositionX = " + elementPositionX);
-            elementKey = "nixie" + elementIndex;
-            nixies.push(<Nixie nixieId={elementKey} digit={code} elementPositionX={elementPositionX} />);
+            nixiesArr.push(<Nixie key={elementIndex} digit={code} elementPositionX={elementPositionX} />);
             elementPositionX += nixieWith;
             if (elementIndex % 3 == 2) {
                 elementPositionX += gutter;
-            }else{
-                //elementPositionX += nixieWith;
             }
         }
     }
 
     return (
         <g className="nixies">
-            {nixies}
+            {nixiesArr}
         </g>
     );
 }
