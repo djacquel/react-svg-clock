@@ -1,27 +1,17 @@
 import React, { PropTypes } from 'react';
 import Nixie from './Nixie';
 import NixieSeparator from './NixieSeparator';
+import Utils from '../../libs/Utils';
 
 const NixieNixies = ({clockWidth, withTenth, newRemainTs}) => {
 
-    var time    = new Date(newRemainTs);
     var nixieWith = 50;
     var separatorWidth = 10;
     var gutter = 0;
     var elementPositionX = 0;
 
-    // get HH:MM:SS
-    // see http://stackoverflow.com/questions/6312993/javascript-seconds-to-time-string-with-format-hhmmss/12612778#12612778
-    // not sure it's the best
-    var timeStr = time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-
-    if (withTenth == true) {
-        var millisec = time.getMilliseconds();
-        var tenth    = Math.floor(millisec/10);
-        var tenthStr = tenth < 10 ? "0" + tenth : tenth;
-        timeStr = timeStr + ":" + tenthStr;
-    }
-
+    // get HH:MM:SS string
+    var timeStr = Utils.getTimeString(newRemainTs, withTenth);
     // console.log("NixieNixies : timeStr = " + timeStr);
 
     var nixiesArr = [];

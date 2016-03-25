@@ -47,13 +47,18 @@ export default class Countdown extends React.Component {
       <p>
         <a href="https://fr.wikipedia.org/wiki/Tube_Nixie">Nixies on Wikipedia</a>
       </p>
+      { this.state.isEditing ?
+          <NixieEdit remainTs={this.state.remainTs} onChange={this.editTime} onSave={this.setSaveTime} clockWith={clockWith} order='1' />
+          :
+          null
+      }
       <svg viewBox={viewBox} className="chrono">
         <g id="clock" transform={'translate(' + clockMargin + ',' + clockMargin + ')'}>
           <NixieDefs clockWidth={clockWith} />
           <NixieBackground clockWidth={clockWith} />
           <NixieNixies clockWidth={clockWith} withTenth={p.withTenth} newRemainTs={newRemainTs} />
           { this.state.isEditing ?
-              <NixieEdit remainTs={this.state.remainTs} onChange={this.editTime} clockWith={clockWith} order='1' />
+              null
               :
               <NixieButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className={this.state.isStarted == false ? 'start':'stop'} clockWith={clockWith} order='1' />
           }
@@ -102,6 +107,7 @@ export default class Countdown extends React.Component {
   }
 
   setSaveTime = (event) => {
+    event.preventDefault();
     if ( this.state.isEditing == false ) {
       this._setTime();
     }else if( this.state.isEditing == true ){
@@ -122,6 +128,11 @@ export default class Countdown extends React.Component {
       isEditing: false
     });
     console.log('saveTime');
+  }
+
+  editTime = (event) => {
+    console.log("Edit time");
+    console.log(event.target.id + " " + event.target.value);
   }
 
   tick = () => {
@@ -145,7 +156,7 @@ export default class Countdown extends React.Component {
   }
 
   _beep = () => {
-    Utils.beep(3);
+    Utils.beep();
   }
 
   // not getInitialState but _getInitialState

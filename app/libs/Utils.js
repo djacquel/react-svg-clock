@@ -50,11 +50,28 @@ var Utils = {
     return date.getTime();
   },
 
-  beep: function( count ){
+    // get HH:MM:SS
+    // see http://stackoverflow.com/questions/6312993/javascript-seconds-to-time-string-with-format-hhmmss/12612778#12612778
+    // not sure it's the best
+  getTimeString: function( timestamp, withTenth = false ) {
+
+    var time    = new Date(timestamp);
+    var timeStr = time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+
+    if (withTenth == true) {
+        var millisec = time.getMilliseconds();
+        var tenth    = Math.floor(millisec/10);
+        var tenthStr = tenth < 10 ? "0" + tenth : tenth;
+        timeStr = timeStr + ":" + tenthStr;
+    }
+
+    return timeStr;
+
+  },
+
+  beep: function(){
     var snd = new Audio("bip.mp3");
     snd.play();
-
-
   }
 
 }
