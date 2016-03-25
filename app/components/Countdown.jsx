@@ -29,7 +29,6 @@ export default class Countdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = this._getInitialState();
-    console.log(this.state)
   }
 
   render() {
@@ -85,16 +84,16 @@ export default class Countdown extends React.Component {
       startTs: startTs
     });
 
-    // if we print milliseconds interval is 10 milliseconds
+    // if we print milliseconds interval is 100 milliseconds
+    // at 10 millesond interval it's buggy -> PERF
     // if not it's 1000 msec = 1 sec
-    var tickInterval = this.props.withTenth === true ? 10 : 1000;
+    var tickInterval = this.props.withTenth === true ? 100 : 1000;
 
     // start ticking
     this.tickerId = setInterval(
       this.tick,
       tickInterval
     );
-    console.log(this.state)
   }
 
   _stop = () => {
@@ -103,7 +102,6 @@ export default class Countdown extends React.Component {
       remainTs: this.state.newRemainTs
     });
     clearInterval(this.tickerId);
-    console.log(this.state)
   }
 
   setSaveTime = (event) => {
@@ -158,19 +156,24 @@ export default class Countdown extends React.Component {
 
   tick = () => {
     var s = this.state;
-
     var now = new Date();
     var nowTs = now.getTime();
     var elapsed = nowTs - s.startTs;
     var newRemainTs = s.remainTs - elapsed;
 
+    var diff = newRemainTs - s.newRemainTs;
+    console.log("thick " + s.newRemainTs + " dif =" + diff);
+
     // check if we reached zero time
     if( newRemainTs <= s.zeroTs ){
-      this.setState({
-        newRemainTs: this.state.zeroTs
-      });
       this._stop();
+      var t = this.state.zeroTs;
+      this.setState({
+        remainTs: t,
+        newRemainTs: t
+      });
       this._beep();
+      console.log(this.state)
     }
 
     this.setState({newRemainTs: newRemainTs});
@@ -185,7 +188,7 @@ export default class Countdown extends React.Component {
   _getInitialState = () => {
 
       var zeroTs = Utils.getTimeStamp(0,0,0);
-      var startTs = Utils.getTimeStamp(0,0,5);
+      var startTs = Utils.getTimeStamp(0,0,2);
 
       var initialState = {
         isStarted: false,
