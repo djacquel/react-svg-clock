@@ -1,5 +1,5 @@
 import React from 'react';
-import TopMenu from './TopMenu';
+import TopMenu from './common/TopMenu';
 
 const About = () => (
 <div>

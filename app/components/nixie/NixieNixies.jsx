@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 import Nixie from './Nixie';
 import NixieSeparator from './NixieSeparator';
 
-const NixieNixies = ({clockWidth, withTenth, newRemainTS}) => {
+const NixieNixies = ({clockWidth, withTenth, newRemainTs}) => {
 
-    console.log("NixieNixies received newRemainTS = " + newRemainTS);
+    console.log("NixieNixies received newRemainTs = " + newRemainTs);
 
-    var time    = new Date(newRemainTS);
+    var time    = new Date(newRemainTs);
     var nixieWith = 50;
     var separatorWidth = 10;
     var gutter = 0;
@@ -24,7 +24,7 @@ const NixieNixies = ({clockWidth, withTenth, newRemainTS}) => {
         timeStr = timeStr + ":" + tenthStr;
     }
 
-    timeStr = "12:34:56:78";
+//    timeStr = "12:34:56:78";
 
     console.log("NixieNixies : timeStr = " + timeStr);
 
@@ -65,7 +65,8 @@ const NixieNixies = ({clockWidth, withTenth, newRemainTS}) => {
 NixieNixies.PropTypes = {
     clockWidth: PropTypes.number.isRequired,
     withTenth: PropTypes.bool.isRequired,
-    newRemainTS: PropTypes.number.isRequired
+    newRemainTs: PropTypes.number.isRequired
 }
+
 
 export default NixieNixies;

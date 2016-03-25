@@ -1,10 +1,10 @@
 import React from 'react';
-import TopMenu from './TopMenu';
-import ClockDefs from './ClockDefs';
-import ClockBackground from './ClockBackground';
-import ClockPointer from './ClockPointer';
-import ClockButton from './ClockButton';
-import ClockLaps from './ClockLaps';
+import TopMenu from './common/TopMenu';
+import ClockDefs from './clock/ClockDefs';
+import ClockBackground from './clock/ClockBackground';
+import ClockPointer from './clock/ClockPointer';
+import ClockButton from './clock/ClockButton';
+import ClockLaps from './clock/ClockLaps';
 
 export default class Clock extends React.Component {
 

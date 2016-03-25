@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 const NixieBackground = ({clockWidth}) => (
   <g>
-    <rect x="0" y="0" height="100" width={clockWidth} className="nixieBackground" />
+    <rect x="0" y="0" height="80" width={clockWidth} className="nixieBackground" />
   </g>
 );
 
