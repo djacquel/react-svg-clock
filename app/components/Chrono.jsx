@@ -1,10 +1,10 @@
 import React from 'react';
-import TopMenu from './TopMenu';
-import ClockDefs from './ClockDefs';
-import ClockBackground from './ClockBackground';
-import ClockPointer from './ClockPointer';
-import ClockButton from './ClockButton';
-import ClockLaps from './ClockLaps';
+import TopMenu from './common/TopMenu';
+import ClockDefs from './clock/ClockDefs';
+import ClockBackground from './clock/ClockBackground';
+import ClockPointer from './clock/ClockPointer';
+import ClockButton from './clock/ClockButton';
+import ClockLaps from './clock/ClockLaps';
 
 export default class Chrono extends React.Component {
 
@@ -114,7 +114,7 @@ export default class Chrono extends React.Component {
   }
 
  // not getInitialState but _getInitialState
- // because we are not suposed to set such a method on a plain js class
+ // because we are not suposed to set a getInitialState method on a plain js class
  _getInitialState = () => {
     // building a 00:00:00 date
     var zero = new Date(1970, 1, 1, 0, 0, 0, 0);
