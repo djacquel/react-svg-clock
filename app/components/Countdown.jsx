@@ -131,8 +131,29 @@ export default class Countdown extends React.Component {
   }
 
   editTime = (event) => {
-    console.log("Edit time");
-    console.log(event.target.id + " " + event.target.value);
+    var editingGroup = event.target.id;
+    var newValue = event.target.value
+    var currentTimeStr = Utils.getTimeString(this.state.remainTs);
+    var [h, m, s] = currentTimeStr.split(":");
+    switch (editingGroup) {
+      case 'hour':
+        h = newValue;
+        break;
+      case 'min':
+        m = newValue;
+        break;
+      case 'sec':
+        s = newValue;
+        break;
+    }
+
+    var newTs = Utils.getTimeStamp( h, m, s );
+
+    this.setState({
+      remainTs : newTs,
+      newRemainTs: newTs
+    });
+
   }
 
   tick = () => {
