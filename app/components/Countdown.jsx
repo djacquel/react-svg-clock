@@ -4,6 +4,7 @@ import NixieDefs from './nixie/NixieDefs';
 import NixieBackground from './nixie/NixieBackground';
 import NixieNixies from './nixie/NixieNixies';
 import NixieButton from './nixie/NixieButton';
+import Utils from '../libs/Utils';
 
 export default class Countdown extends React.Component {
 
@@ -27,6 +28,7 @@ export default class Countdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = this._getInitialState();
+    console.log(this.state)
   }
 
   render() {
@@ -59,31 +61,39 @@ export default class Countdown extends React.Component {
 
   startStop = (event) => {
     if ( this.state.isStarted == false ){
-
-      var start = new Date();
-      var startTs = start.getTime();
-      this.setState({
-        isStarted: !this.state.isStarted,
-        startTs: startTs
-      });
-
-      // if we print milliseconds interval is 10 milliseconds
-      // if not it's 1000 msec = 1 sec
-      var tickInterval = this.props.withTenth === true ? 10 : 1000;
-
-      // start ticking
-      this.tickerId = setInterval(
-        this.tick,
-        tickInterval
-      );
-
+      this._start();
     }else if( this.state.isStarted == true ){
-      this.setState({
-        isStarted: !this.state.isStarted,
-        remainTs: this.state.newRemainTs
-      });
-      clearInterval(this.tickerId);
+      this._stop();
     }
+  }
+
+  _start = () => {
+    var start = new Date();
+    var startTs = start.getTime();
+    this.setState({
+      isStarted: !this.state.isStarted,
+      startTs: startTs
+    });
+
+    // if we print milliseconds interval is 10 milliseconds
+    // if not it's 1000 msec = 1 sec
+    var tickInterval = this.props.withTenth === true ? 10 : 1000;
+
+    // start ticking
+    this.tickerId = setInterval(
+      this.tick,
+      tickInterval
+    );
+    console.log(this.state)
+  }
+
+  _stop = () => {
+    this.setState({
+      isStarted: !this.state.isStarted,
+      remainTs: this.state.newRemainTs
+    });
+    clearInterval(this.tickerId);
+    console.log(this.state)
   }
 
   setTime = (event) => {
@@ -91,36 +101,40 @@ export default class Countdown extends React.Component {
   }
 
   tick = () => {
-    var remainTs = this.state.remainTs;
-    console.log("+++++++++++++++ Thick !");
-    console.log( this.state )
-
-    var startTs = this.state.startTs;
+    var s = this.state;
 
     var now = new Date();
     var nowTs = now.getTime();
+    var elapsed = nowTs - s.startTs;
+    var newRemainTs = s.remainTs - elapsed;
 
-    console.log("remainTs = " + remainTs +" startTs = " + startTs + " nowTs = " + nowTs);
-
-    var elapsed = nowTs - startTs;
-    var newRemainTs = remainTs - elapsed;
-    console.log("elapsed = " + elapsed + " newRemainTs = " + newRemainTs);
+    // check if we reached zero time
+    if( newRemainTs <= s.zeroTs ){
+      this._stop();
+      this._beep();
+    }
 
     this.setState({newRemainTs: newRemainTs});
-    console.log("Tick AFTER setState " + this.state.remainTs)
+  }
+
+  _beep = () => {
+    Utils.beep(3);
   }
 
   // not getInitialState but _getInitialState
   // because we are not suposed to set a getInitialState method on a plain js class
   _getInitialState = () => {
-      // building a 00:00:00 date
-      var zero = new Date(1970, 1, 1, 2, 10, 10);
-      var zeroTs = zero.getTime()
+
+      var zeroTs = Utils.getTimeStamp(0,0,0);
+      var startTs = Utils.getTimeStamp(0,0,5);
+
       var initialState = {
         isStarted: false,
-        remainTs: zeroTs,
-        newRemainTs: zeroTs
+        zeroTs: zeroTs,
+        remainTs: startTs,
+        newRemainTs: startTs
       }
+
       return initialState;
   }
 
