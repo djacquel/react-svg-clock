@@ -53,3 +53,30 @@ describe('Utils getRotation function', () => {
         }
     );
 });
+
+describe('Utils getTimeStamp function', () => {
+
+    let times = [
+        [0,0,0,'00:00:00'],
+        [24,0,0,'00:00:00'],
+        [23,60,0,'00:00:00'],
+        [23,59,60,'00:00:00'],
+        [1,1,1,'01:01:01'],
+    ]
+
+    it('Should return correct timestamp for given hour, min, sec', () => {
+
+        times.forEach(
+            (v) => {
+                var generatedZeroTs = Utils.getTimeStamp(v[0], v[1], v[2]);
+                var d = new Date(generatedZeroTs);
+                var s = d.toTimeString();
+                var timeStr = s.slice(0, 8);
+                console.log(timeStr + '=' + v[3]);
+
+                expect(timeStr).toEqual(v[3]);
+            }
+        )
+    })
+});
+
