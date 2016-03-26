@@ -45,21 +45,21 @@ var Utils = {
 
   // returns a timestamp for a given hour today
   // timestamp value depends on the computer's TZ settings
-  getTimeStamp: function( h=0, m=0, s=0 ) {
+  getTimeStamp: function( h=0, m=0, s=0, ms=0 ) {
     var date = new Date();
-    date.setHours(h,m,s); // we ignore milliseconds here
+    date.setHours(h,m,s,ms);
     return date.getTime();
   },
 
-  // get HH:MM:SS
-  //
-  // not sure it's the best way to
-  getTimeString: function( timestamp, withTenth = false ) {
+  // get HH:MM:SS string
+  // with to digits representing hundredth of second
+  // if
+  getTimeString: function( timestamp, hundredth = false ) {
 
     var time    = new Date(timestamp);
     var timeStr = time.toTimeString().slice(0, 8);
 
-    if (withTenth == true) {
+    if (hundredth == true) {
         var millisec = time.getMilliseconds();
         var tenth    = Math.floor(millisec/10);
         var tenthStr = tenth < 10 ? "0" + tenth : tenth;
@@ -67,7 +67,6 @@ var Utils = {
     }
 
     return timeStr;
-
   },
 
   beep: function(){
