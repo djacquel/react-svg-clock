@@ -43,20 +43,21 @@ var Utils = {
     return rotation;
   },
 
-  // returns a timestamp for given hour
-  // this depends on the computer's TZ settings
-  getTimeStamp: function( h, m, s ) {
-    var date = new Date(1970, 1, 1, h, m, s);
+  // returns a timestamp for a given hour today
+  // timestamp value depends on the computer's TZ settings
+  getTimeStamp: function( h=0, m=0, s=0 ) {
+    var date = new Date();
+    date.setHours(h,m,s); // we ignore milliseconds here
     return date.getTime();
   },
 
-    // get HH:MM:SS
-    // see http://stackoverflow.com/questions/6312993/javascript-seconds-to-time-string-with-format-hhmmss/12612778#12612778
-    // not sure it's the best
+  // get HH:MM:SS
+  //
+  // not sure it's the best way to
   getTimeString: function( timestamp, withTenth = false ) {
 
     var time    = new Date(timestamp);
-    var timeStr = time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+    var timeStr = time.toTimeString().slice(0, 8);
 
     if (withTenth == true) {
         var millisec = time.getMilliseconds();
