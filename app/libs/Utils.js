@@ -51,21 +51,18 @@ var Utils = {
     return date.getTime();
   },
 
-  // get HH:MM:SS string
-  // with to digits representing hundredth of second
-  // if
-  getTimeString: function( timestamp, hundredth = false ) {
+  // get HH:MM:SS:T string
+  // with one digits representing tenth of second
+  // if "tenth = false" return a string with no tenth HH:MM:SS
+  getTimeString: function( timestamp, tenth = true ) {
 
     var time    = new Date(timestamp);
     var timeStr = time.toTimeString().slice(0, 8);
 
-    if (hundredth == true) {
-        var millisec = time.getMilliseconds();
-        var tenth    = Math.floor(millisec/10);
-        var tenthStr = tenth < 10 ? "0" + tenth : tenth;
+    if (tenth == true) {
+        var tenthStr = Math.floor(time.getMilliseconds()/100);;
         timeStr = timeStr + ":" + tenthStr;
     }
-
     return timeStr;
   },
 

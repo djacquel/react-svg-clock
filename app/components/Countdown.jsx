@@ -12,15 +12,15 @@ export default class Countdown extends React.Component {
   static defaultProps = {
     svgWidth: 450,
     svgHeight: 250,
-    clockMargin: 10,
+    clockMargin: 0,
     withTenth: true
   }
 
   static propTypes = {
-    svgWidth: React.PropTypes.number.isRequired,
-    svgHeight: React.PropTypes.number.isRequired,
-    clockMargin: React.PropTypes.number.isRequired,
-    withTenth: React.PropTypes.bool.isRequired,
+    svgWidth: React.PropTypes.number,
+    svgHeight: React.PropTypes.number,
+    clockMargin: React.PropTypes.number,
+    withTenth: React.PropTypes.bool
   }
 
   // keep track of setInterval in order to clearInterval
@@ -42,10 +42,7 @@ export default class Countdown extends React.Component {
     return (
     <div>
       <TopMenu />
-      <h2>Countdown with nixies</h2>
-      <p>
-        <a href="https://fr.wikipedia.org/wiki/Tube_Nixie">Nixies on Wikipedia</a>
-      </p>
+      <h2>Countdown with <a href="https://fr.wikipedia.org/wiki/Tube_Nixie">Nixies</a></h2>
       { this.state.isEditing ?
           <NixieEdit remainTs={this.state.remainTs} onChange={this.editTime} onSave={this.setSaveTime} clockWith={clockWith} order='1' />
           :
@@ -55,7 +52,7 @@ export default class Countdown extends React.Component {
         <g id="clock" transform={'translate(' + clockMargin + ',' + clockMargin + ')'}>
           <NixieDefs clockWidth={clockWith} />
           <NixieBackground clockWidth={clockWith} />
-          <NixieNixies clockWidth={clockWith} withTenth={p.withTenth} newRemainTs={newRemainTs} />
+          <NixieNixies clockWidth={clockWith} newRemainTs={newRemainTs} />
           { this.state.isEditing ?
               null
               :
@@ -84,15 +81,10 @@ export default class Countdown extends React.Component {
       startTs: startTs
     });
 
-    // if we print milliseconds interval is 100 milliseconds
-    // at 10 millesond interval it's buggy -> PERF
-    // if not it's 1000 msec = 1 sec
-    var tickInterval = this.props.withTenth === true ? 100 : 1000;
-
     // start ticking
     this.tickerId = setInterval(
       this.tick,
-      tickInterval
+      this.props.tickInterval
     );
   }
 
@@ -145,7 +137,7 @@ export default class Countdown extends React.Component {
         break;
     }
 
-    var newTs = Utils.getTimeStamp( h, m, s );
+    var newTs = Utils.getTimeStamp( h, m, s, 0 );
 
     this.setState({
       remainTs : newTs,
@@ -188,7 +180,7 @@ export default class Countdown extends React.Component {
   _getInitialState = () => {
 
       var zeroTs = Utils.getTimeStamp(0,0,0);
-      var startTs = Utils.getTimeStamp(0,0,2);
+      var startTs = Utils.getTimeStamp(0,52,0);
 
       var initialState = {
         isStarted: false,

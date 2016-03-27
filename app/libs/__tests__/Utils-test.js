@@ -52,31 +52,52 @@ describe('Utils getRotation function', () => {
             })
         }
     );
-});
+})
 
 describe('Utils getTimeStamp function', () => {
 
     let times = [
-        [0,0,0,'00:00:00'],
-        [24,0,0,'00:00:00'],
-        [23,60,0,'00:00:00'],
-        [23,59,60,'00:00:00'],
-        [1,1,1,'01:01:01'],
+        // h, m, s,        ms,     tenth, expected time string
+        [  0, 0, 0, undefined, undefined, '00:00:00:0'],
+        [ 24, 0, 0, undefined, undefined, '00:00:00:0'],
+        [ 23,60, 0, undefined, undefined, '00:00:00:0'],
+        [ 23,59,60, undefined, undefined, '00:00:00:0'],
+        [  1, 1, 1, undefined, undefined, '01:01:01:0'],
+        [  0, 0, 0,         0, undefined, '00:00:00:0'],
+        [  0, 0, 0,         0,     false, '00:00:00'],
     ]
 
-    it('Should return correct timestamp for given hour, min, sec', () => {
-
+    it('Should return valid timestamp for given hour, min, sec', () => {
         times.forEach(
-            (v) => {
-                var generatedZeroTs = Utils.getTimeStamp(v[0], v[1], v[2]);
-                var d = new Date(generatedZeroTs);
-                var s = d.toTimeString();
-                var timeStr = s.slice(0, 8);
-                console.log(timeStr + '=' + v[3]);
+            (v, index) => {
+                var generatedZeroTs = Utils.getTimeStamp(v[0], v[1], v[2], v[3]);
+                var timeStr = Utils.getTimeString(generatedZeroTs, v[4]);
 
-                expect(timeStr).toEqual(v[3]);
+                expect(timeStr).toEqual(v[5]);
             }
         )
     })
-});
+})
 
+describe('Utils getTimeString function', () => {
+    it('Should return correct timestring for timestamp', () => {
+
+        let times = [
+            // h, m, s, ms,       tenth,  expected time string
+            [  0, 0, 0,  0,   undefined,   '00:00:00:0'],
+            [  0, 0, 0,  0,        true,   '00:00:00:0'],
+            [  0, 0, 0,  0,       false,   '00:00:00'],
+        ]
+
+        times.forEach(
+            (v, index) => {
+                // we relies on Utils.getTimeStamp which is supposed to be tested
+                var generatedZeroTs = Utils.getTimeStamp(v[0], v[1], v[2], v[3]);
+                var timeStr = Utils.getTimeString(generatedZeroTs, v[4]);
+
+                expect(timeStr).toEqual(v[5]);
+            }
+        )
+
+    })
+})

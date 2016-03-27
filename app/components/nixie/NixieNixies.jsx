@@ -3,15 +3,15 @@ import Nixie from './Nixie';
 import NixieSeparator from './NixieSeparator';
 import Utils from '../../libs/Utils';
 
-const NixieNixies = ({clockWidth, withTenth, newRemainTs}) => {
+const NixieNixies = ({clockWidth, newRemainTs}) => {
 
-    var nixieWith = 50;
+    var nixieWith      = 50;
     var separatorWidth = 10;
-    var gutter = 0;
+    var gutter         = 0;
     var elementPositionX = 0;
 
     // get HH:MM:SS string
-    var timeStr = Utils.getTimeString(newRemainTs, withTenth);
+    var timeStr = Utils.getTimeString(newRemainTs);
     // console.log("NixieNixies : timeStr = " + timeStr);
 
     var nixiesArr = [];
@@ -47,6 +47,5 @@ NixieNixies.PropTypes = {
     withTenth: PropTypes.bool.isRequired,
     newRemainTs: PropTypes.number.isRequired
 }
-
 
 export default NixieNixies;
