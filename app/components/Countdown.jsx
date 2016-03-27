@@ -1,4 +1,6 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
+
 import TopMenu from './common/TopMenu';
 import NixieDefs from './nixie/NixieDefs';
 import NixieBackground from './nixie/NixieBackground';
@@ -115,7 +117,11 @@ export default class Countdown extends React.Component {
     this.setState({
       isEditing: false
     });
-    console.log('saveTime');
+    var currentTimeStr = Utils.getTimeString(this.state.remainTs);
+    var [h, m, s] = currentTimeStr.split(":");
+    var path = '/countdown/'+Number(h)+'/'+Number(m)+'/'+Number(s);
+    browserHistory.push(path);
+    console.log('saveTime : path' + path);
   }
 
   editTime = (event) => {
