@@ -3,6 +3,7 @@ const path = require("path");
 const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanPlugin = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Load *package.json* so we can use `dependencies` from there
 const pkg = require("./package.json");
@@ -32,7 +33,8 @@ const common = {
   output: {
     path: PATHS.build,
     // Output using entry name
-    filename: "[name].js"
+    // prepend a / to avoid 404 with react router
+    filename: "/[name].js"
   },
   module: {
     preLoaders: [
@@ -69,7 +71,10 @@ const common = {
       title: "React SVG Clocks",
       appMountId: "app",
       inject: false
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: './assets/**/*.mp3', to: './build' },
+    ])
   ]
 };
 
@@ -123,7 +128,8 @@ if(TARGET === "build") {
 
     output: {
       path: PATHS.build,
-      filename: "[name].[chunkhash].js",
+      // prepend a / to avoid 404 with react router
+      filename: "/[name].[chunkhash].js",
       chunkFilename: "[chunkhash].js"
     },
 
