@@ -1,6 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router';
-import NavLink from './NavLink';
+import React from "react";
+import NavLink from "./NavLink";
 
 const TopMenu = () => (
     <div>

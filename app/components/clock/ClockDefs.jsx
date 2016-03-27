@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from "react";
 
 const ClockDefs = ({clockRadius=75}) => (
   <defs>
@@ -15,7 +15,7 @@ const ClockDefs = ({clockRadius=75}) => (
 );
 
 ClockDefs.PropTypes = {
-    clockRadius: PropTypes.number.isRequired
+  clockRadius: PropTypes.number.isRequired,
 }
 
 export default ClockDefs;

@@ -1,38 +1,38 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from "react";
 
 const Nixie = ({nixieId, digit, elementPositionX, scaling}) => {
 
     // digit order - cf https://en.wikipedia.org/wiki/Nixie_tube#Design
     // var mixiePattern = [6, 7, 5, 8, 4, 3, 9, 2, 0, 1];
-    var mixiePattern = [6, 7, 5, 8, 4, 3, 9, 2, 0, 1];
-    var digits = [];
+  var mixiePattern = [6, 7, 5, 8, 4, 3, 9, 2, 0, 1];
+  var digits = [];
 
-    mixiePattern.forEach(
+  mixiePattern.forEach(
         (d, index) => {
-            var defId   = "#d" + d;
-            var digitId = nixieId + 'digit' + index;
-            var elClass = 'digit';
-            if (d == digit) {
-                elClass += ' glowing';
-            }
-            digits.push(<use xlinkHref={defId} className={elClass} key={digitId}/>);
+          var defId = "#d" + d;
+          var digitId = nixieId + "digit" + index;
+          var elClass = "digit";
+          if (d === Number(digit)) {
+            elClass += " glowing";
+          }
+          digits.push(<use xlinkHref={defId} className={elClass} key={digitId}/>);
         }
     );
 
-    return(
-        <g className='nixie' key={nixieId} transform={"translate("+elementPositionX+") scale("+scaling+")"}>
+  return (
+        <g className="nixie" key={nixieId} transform={"translate("+elementPositionX+") scale("+scaling+")"}>
             {digits}
             <use xlinkHref="#grid" />
         </g>
-    )
+  )
 
 }
 
 Nixie.PropTypes = {
-    id: React.PropTypes.string.isRequired,
-    digit: React.PropTypes.string.isRequired,
-    elementPositionX: React.PropTypes.number.isRequired,
-    nixieWith: React.PropTypes.number.isRequired
+  id: PropTypes.string.isRequired,
+  digit: PropTypes.string.isRequired,
+  elementPositionX: PropTypes.number.isRequired,
+  nixieWith: PropTypes.number.isRequired,
 }
 
 export default Nixie;

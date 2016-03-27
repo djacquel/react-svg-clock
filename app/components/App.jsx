@@ -1,5 +1,5 @@
-import React from 'react';
-import TopMenu from './common/TopMenu';
+import React from "react";
+import TopMenu from "./common/TopMenu";
 
 export default class App extends React.Component {
 

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from "react";
 
 const NixieBackground = ({clockWidth}) => (
   <g>
@@ -7,7 +7,7 @@ const NixieBackground = ({clockWidth}) => (
 );
 
 NixieBackground.PropTypes = {
-    clockWidth: PropTypes.number.isRequired
+  clockWidth: PropTypes.number.isRequired,
 }
 
 export default NixieBackground;

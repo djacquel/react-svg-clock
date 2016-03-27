@@ -1,17 +1,17 @@
-const webpack = require('webpack');
-const path = require('path');
-const merge = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanPlugin = require('clean-webpack-plugin');
+const webpack = require("webpack");
+const path = require("path");
+const merge = require("webpack-merge");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CleanPlugin = require("clean-webpack-plugin");
 
 // Load *package.json* so we can use `dependencies` from there
-const pkg = require('./package.json');
+const pkg = require("./package.json");
 
 const TARGET = process.env.npm_lifecycle_event;
 
 const PATHS = {
-  app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'build')
+  app: path.join(__dirname, "app"),
+  build: path.join(__dirname, "build")
 };
 
 
@@ -27,18 +27,18 @@ const common = {
   // '' is needed to allow imports without an extension.
   // Note the .'s before extensions as it will fail to match without!!!
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ["", ".js", ".jsx"]
   },
   output: {
     path: PATHS.build,
     // Output using entry name
-    filename: '[name].js'
+    filename: "[name].js"
   },
   module: {
     preLoaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['eslint'],
+        loaders: ["eslint"],
         include: PATHS.app
       }
     ],
@@ -46,7 +46,7 @@ const common = {
       {
         // Test expects a RegExp! Note the slashes!
         test: /\.scss$/,
-        loaders: ['style', 'css', "sass"],
+        loaders: ["style", "css", "sass"],
         // Include accepts either a path or an array of paths.
         include: PATHS.app
       },
@@ -56,7 +56,7 @@ const common = {
         // Enable caching for improved performance during development
         // It uses default OS directory by default. If you need something
         // more custom, pass a path to it. I.e., babel?cacheDirectory=<path>
-        loaders: ['babel?cacheDirectory'],
+        loaders: ["babel?cacheDirectory"],
         // Parse only app files! Without this it will go through entire project.
         // In addition to being slow, that will most likely result in an error.
         include: PATHS.app
@@ -65,21 +65,21 @@ const common = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'node_modules/html-webpack-template/index.ejs',
-      title: 'React SVG Clocks',
-      appMountId: 'app',
+      template: "node_modules/html-webpack-template/index.ejs",
+      title: "React SVG Clocks",
+      appMountId: "app",
       inject: false
     })
   ]
 };
 
 // Default configuration
-if(TARGET === 'start' || !TARGET) {
+if(TARGET === "start" || !TARGET) {
 
   module.exports = merge(common, {
 
     // add source map
-    devtool: 'eval-source-map',
+    devtool: "eval-source-map",
 
     devServer: {
       // Enable history API fallback so HTML5 History API based
@@ -91,7 +91,7 @@ if(TARGET === 'start' || !TARGET) {
       progress: true,
 
       // Display only errors to reduce the amount of output.
-      stats: 'errors-only',
+      stats: "errors-only",
       // Parse host and port from env so this is easy to customize.
       //
       // If you use Vagrant or Cloud9, set
@@ -108,7 +108,7 @@ if(TARGET === 'start' || !TARGET) {
   });
 
 }
-if(TARGET === 'build') {
+if(TARGET === "build") {
   module.exports = merge(common, {
 
     // Define vendor entry point needed for splitting
@@ -117,14 +117,14 @@ if(TARGET === 'build') {
         // Exclude alt-utils as it won't work with this setup
         // due to the way the package has been designed
         // (no package.json main).
-        return v !== 'alt-utils';
+        return v !== "alt-utils";
       })
     },
 
     output: {
       path: PATHS.build,
-      filename: '[name].[chunkhash].js',
-      chunkFilename: '[chunkhash].js'
+      filename: "[name].[chunkhash].js",
+      chunkFilename: "[chunkhash].js"
     },
 
     plugins: [
@@ -132,13 +132,13 @@ if(TARGET === 'build') {
 
       // Extract vendor and manifest files
       new webpack.optimize.CommonsChunkPlugin({
-        names: ['vendor', 'manifest']
+        names: ["vendor", "manifest"]
       }),
       // Setting DefinePlugin affects React library size!
       // DefinePlugin replaces content "as is" so we need some extra quotes
       // for the generated code to make sense
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': '"production"'
+        "process.env.NODE_ENV": "\"production\""
 
         // You can set this to JSON.stringify('development') for your
         // development target to force NODE_ENV to development mode

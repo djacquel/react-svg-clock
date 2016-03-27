@@ -1,14 +1,17 @@
-import React from 'react';
-import TopMenu from './common/TopMenu';
-import ClockDefs from './clock/ClockDefs';
-import ClockBackground from './clock/ClockBackground';
-import ClockPointer from './clock/ClockPointer';
-import ClockButton from './clock/ClockButton';
-import ClockLaps from './clock/ClockLaps';
+import React from "react";
+import ClockDefs from "./clock/ClockDefs";
+import ClockBackground from "./clock/ClockBackground";
+import ClockPointer from "./clock/ClockPointer";
+import ClockButton from "./clock/ClockButton";
+import ClockLaps from "./clock/ClockLaps";
 
 export default class Chrono extends React.Component {
 
-  static defaultProps = { svgWidth: 200, svgHeight: 280, clockRadius: 75 }
+  static defaultProps = {
+    svgWidth: 200,
+    svgHeight: 280,
+    clockRadius: 75,
+  }
 
   static propTypes = {
     svgWidth: React.PropTypes.number.isRequired,
@@ -30,22 +33,22 @@ export default class Chrono extends React.Component {
     var p = this.props;
     var timeTs = this.state.newTimeTs;
 
-    var viewBox = '0 0 ' + p.svgWidth + ' ' + p.svgHeight;
+    var viewBox = "0 0 " + p.svgWidth + " " + p.svgHeight;
     var clockDiameter = p.clockRadius * 2;
     var centerOffset = (p.svgWidth - clockDiameter)/2;
 
     return (
     <div>
       <svg viewBox={viewBox} className="clock">
-        <g id="clock" transform={'translate(' + centerOffset + ',' + centerOffset + ')'}>
+        <g id="clock" transform={"translate(" + centerOffset + "," + centerOffset + ")"}>
           <ClockDefs clockRadius={p.clockRadius} />
           <ClockBackground clockRadius={p.clockRadius} />
-          <ClockPointer type='hour' timeTs={timeTs} clockRadius={p.clockRadius} />
-          <ClockPointer type='min' timeTs={timeTs} clockRadius={p.clockRadius} />
-          <ClockPointer type='sec' timeTs={timeTs} clockRadius={p.clockRadius} />
-          <use xlinkHref='#clockCenter' />
-          <ClockButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className={this.state.isStarted == false ? 'start':'stop'} clockRadius={p.clockRadius} order='1' />
-          <ClockButton text={this.state.isStarted == true ? 'Lap':'Reset'} onClick={this.lapReset} clockRadius={p.clockRadius} order='2' />
+          <ClockPointer type="hour" timeTs={timeTs} clockRadius={p.clockRadius} />
+          <ClockPointer type="min" timeTs={timeTs} clockRadius={p.clockRadius} />
+          <ClockPointer type="sec" timeTs={timeTs} clockRadius={p.clockRadius} />
+          <use xlinkHref="#clockCenter" />
+          <ClockButton text={this.state.isStarted === false ? "Start":"Stop"} onClick={this.startStop} className={this.state.isStarted === false ? "start":"stop"} clockRadius={p.clockRadius} order="1" />
+          <ClockButton text={this.state.isStarted === true ? "Lap":"Reset"} onClick={this.lapReset} clockRadius={p.clockRadius} order="2" />
           <ClockLaps laps={this.state.laps} />
         </g>
       </svg>
@@ -57,37 +60,37 @@ export default class Chrono extends React.Component {
     clearInterval(this.tickerId);
   }
 
-  startStop = (event) => {
-    if ( this.state.isStarted == false ){
+  startStop = () => {
+    if ( this.state.isStarted === false ) {
       var start = new Date();
       var startTs = start.getTime();
       this.setState({
         isStarted: !this.state.isStarted,
-        startTs: startTs
+        startTs: startTs,
       });
       this.tickerId = setInterval(
         this.tick,
         this.TICK
       );
-    }else if( this.state.isStarted == true ){
+    } else if ( this.state.isStarted === true ) {
       this.setState({
         isStarted: !this.state.isStarted,
-        timeTs: this.state.newTimeTs
+        timeTs: this.state.newTimeTs,
       });
       clearInterval(this.tickerId);
     }
   }
 
-  lapReset = (event) => {
-    if ( this.state.isStarted == false ){
+  lapReset = () => {
+    if ( this.state.isStarted === false ) {
       this.reset();
-    }else if( this.state.isStarted == true ){
+    } else if ( this.state.isStarted === true ) {
       var lapNumber = this.state.laps.length;
       this.setState({
         laps: this.state.laps.concat([{
           id: ++lapNumber,
-          ts: this.state.newTimeTs
-        }])
+          ts: this.state.newTimeTs,
+        }]),
       });
     }
   }
@@ -104,7 +107,7 @@ export default class Chrono extends React.Component {
 
  // not getInitialState but _getInitialState
  // because we are not suposed to set a getInitialState method on a plain js class
- _getInitialState = () => {
+  _getInitialState = () => {
     // building a 00:00:00 date
     var zero = new Date(1970, 1, 1, 0, 0, 0, 0);
     var zeroTs = zero.getTime()
@@ -112,10 +115,10 @@ export default class Chrono extends React.Component {
       isStarted: false,
       laps: [],
       timeTs: zeroTs,
-      newTimeTs: zeroTs
+      newTimeTs: zeroTs,
     }
     return initialState;
- }
+  }
 
   reset = () => {
     this.setState( this._getInitialState() );

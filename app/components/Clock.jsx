@@ -1,14 +1,15 @@
-import React from 'react';
-import TopMenu from './common/TopMenu';
-import ClockDefs from './clock/ClockDefs';
-import ClockBackground from './clock/ClockBackground';
-import ClockPointer from './clock/ClockPointer';
-import ClockButton from './clock/ClockButton';
-import ClockLaps from './clock/ClockLaps';
+import React from "react";
+import ClockDefs from "./clock/ClockDefs";
+import ClockBackground from "./clock/ClockBackground";
+import ClockPointer from "./clock/ClockPointer";
 
 export default class Clock extends React.Component {
 
-  static defaultProps = { svgWidth: 200, svgHeight: 200, clockRadius: 75 }
+  static defaultProps = {
+    svgWidth: 200,
+    svgHeight: 200,
+    clockRadius: 75,
+  }
 
   static propTypes = {
     svgWidth: React.PropTypes.number.isRequired,
@@ -30,20 +31,20 @@ export default class Clock extends React.Component {
     var p = this.props;
     var timeTs = this.state.timeTs;
 
-    var viewBox = '0 0 ' + p.svgWidth + ' ' + p.svgHeight;
+    var viewBox = "0 0 " + p.svgWidth + " " + p.svgHeight;
     var clockDiameter = p.clockRadius * 2;
     var centerOffset = (p.svgWidth - clockDiameter)/2;
 
     return (
     <div>
       <svg viewBox={viewBox} className="clock">
-        <g id="clock" transform={'translate(' + centerOffset + ',' + centerOffset + ')'}>
+        <g id="clock" transform={"translate(" + centerOffset + "," + centerOffset + ")"}>
           <ClockDefs clockRadius={p.clockRadius} />
           <ClockBackground clockRadius={p.clockRadius} />
-          <ClockPointer type='hour' timeTs={timeTs} clockRadius={p.clockRadius} />
-          <ClockPointer type='min' timeTs={timeTs} clockRadius={p.clockRadius} />
-          <ClockPointer type='sec' timeTs={timeTs} clockRadius={p.clockRadius} />
-          <use xlinkHref='#clockCenter' />
+          <ClockPointer type="hour" timeTs={timeTs} clockRadius={p.clockRadius} />
+          <ClockPointer type="min" timeTs={timeTs} clockRadius={p.clockRadius} />
+          <ClockPointer type="sec" timeTs={timeTs} clockRadius={p.clockRadius} />
+          <use xlinkHref="#clockCenter" />
         </g>
       </svg>
     </div>
@@ -61,17 +62,17 @@ export default class Clock extends React.Component {
   // not getInitialState but _getInitialState
   // because we are not suposed to set such a method on a plain js class
   _getInitialState = () => {
-      var time = new Date();
-      var timeTs = time.getTime()
-      var initialState = {
-        timeTs: timeTs
-      }
-      return initialState;
+    var time = new Date();
+    var timeTs = time.getTime()
+    var initialState = {
+      timeTs: timeTs,
+    }
+    return initialState;
   }
 
 
   start = () => {
-      this.tickerId = setInterval(
+    this.tickerId = setInterval(
         this.tick,
         this.TICK
       );

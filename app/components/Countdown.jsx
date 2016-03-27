@@ -1,25 +1,23 @@
-import React from 'react';
-import { browserHistory } from 'react-router';
+import React from "react";
+import { browserHistory } from "react-router";
 
-import TopMenu from './common/TopMenu';
-import NixieDefs from './nixie/NixieDefs';
-import NixieBackground from './nixie/NixieBackground';
-import NixieNixies from './nixie/NixieNixies';
-import NixieEdit from './nixie/NixieEdit';
-import NixieButton from './nixie/NixieButton';
-import Utils from '../libs/Utils';
+import NixieDefs from "./nixie/NixieDefs";
+import NixieNixies from "./nixie/NixieNixies";
+import NixieEdit from "./nixie/NixieEdit";
+import NixieButton from "./nixie/NixieButton";
+import Utils from "../libs/Utils";
 
 export default class Countdown extends React.Component {
 
   static defaultProps = {
     svgWidth: 450,
     svgHeight: 250,
-    tickInterval: 100
+    tickInterval: 100,
   }
 
   static propTypes = {
     svgWidth: React.PropTypes.number,
-    svgHeight: React.PropTypes.number
+    svgHeight: React.PropTypes.number,
   }
 
   // keep track of setInterval in order to clearInterval
@@ -33,36 +31,36 @@ export default class Countdown extends React.Component {
   render() {
     var p = this.props;
     var newRemainTs = this.state.newRemainTs;
-    var viewBox = '0 0 ' + p.svgWidth + ' ' + p.svgHeight;
+    var viewBox = "0 0 " + p.svgWidth + " " + p.svgHeight;
     var clockWith = p.svgWidth;
 
     return (
     <div>
       { this.state.isEditing ?
-          <NixieEdit remainTs={this.state.remainTs} onChange={this.editTime} onSave={this.setSaveTime} clockWith={clockWith} order='1' />
+          <NixieEdit remainTs={this.state.remainTs} onChange={this.editTime} onSave={this.setSaveTime} clockWith={clockWith} order="1" />
           :
           null
       }
       <svg viewBox={viewBox} className="countdown">
         <g id="clock">
-          <NixieDefs clockWidth={clockWith} />
+          <NixieDefs />
           <NixieNixies clockWidth={clockWith} newRemainTs={newRemainTs} />
           { this.state.isEditing ?
               null
               :
-              <NixieButton text={this.state.isStarted == false ? 'Start':'Stop'} onClick={this.startStop} className={this.state.isStarted == false ? 'start':'stop'} clockWith={clockWith} order='1' />
+              <NixieButton text={this.state.isStarted === false ? "Start":"Stop"} onClick={this.startStop} className={this.state.isStarted === false ? "start":"stop"} clockWith={clockWith} order="1" />
           }
-          <NixieButton text={this.state.isEditing == false ? 'Set time':'Save time'} onClick={this.setSaveTime} clockWith={clockWith} order='2' />
+          <NixieButton text={this.state.isEditing === false ? "Set time":"Save time"} onClick={this.setSaveTime} clockWith={clockWith} order="2" />
         </g>
       </svg>
     </div>
     );
   }
 
-  startStop = (event) => {
-    if ( this.state.isStarted == false ){
+  startStop = () => {
+    if ( this.state.isStarted === false ) {
       this._start();
-    }else if( this.state.isStarted == true ){
+    } else if ( this.state.isStarted === true ) {
       this._stop();
     }
   }
@@ -72,7 +70,7 @@ export default class Countdown extends React.Component {
     var startTs = start.getTime();
     this.setState({
       isStarted: true,
-      startTs: startTs
+      startTs: startTs,
     });
 
     // start ticking
@@ -85,16 +83,16 @@ export default class Countdown extends React.Component {
   _stop = () => {
     this.setState({
       isStarted: false,
-      remainTs: this.state.newRemainTs
+      remainTs: this.state.newRemainTs,
     });
     clearInterval(this.tickerId);
   }
 
   setSaveTime = (event) => {
     event.preventDefault();
-    if ( this.state.isEditing == false ) {
+    if ( this.state.isEditing === false ) {
       this._setTime();
-    }else if( this.state.isEditing == true ){
+    } else if ( this.state.isEditing === true ) {
       this._saveTime();
     }
   }
@@ -102,17 +100,17 @@ export default class Countdown extends React.Component {
   _setTime = () => {
     this._stop();
     this.setState({
-      isEditing: true
+      isEditing: true,
     });
   }
 
   _saveTime = () => {
     this.setState({
-      isEditing: false
+      isEditing: false,
     });
     var currentTimeStr = Utils.getTimeString(this.state.remainTs);
     var [h, m, s] = currentTimeStr.split(":");
-    var path = '/countdown/'+Number(h)+'/'+Number(m)+'/'+Number(s);
+    var path = "/countdown/"+Number(h)+"/"+Number(m)+"/"+Number(s);
     browserHistory.push(path);
   }
 
@@ -122,13 +120,13 @@ export default class Countdown extends React.Component {
     var currentTimeStr = Utils.getTimeString(this.state.remainTs);
     var [h, m, s] = currentTimeStr.split(":");
     switch (editingGroup) {
-      case 'hour':
+      case "hour":
         h = newValue;
         break;
-      case 'min':
+      case "min":
         m = newValue;
         break;
-      case 'sec':
+      case "sec":
         s = newValue;
         break;
     }
@@ -137,7 +135,7 @@ export default class Countdown extends React.Component {
 
     this.setState({
       remainTs : newTs,
-      newRemainTs: newTs
+      newRemainTs: newTs,
     });
 
   }
@@ -147,18 +145,17 @@ export default class Countdown extends React.Component {
     var now = new Date();
     var elapsed = now.getTime() - s.startTs;
     var newRemainTs = s.remainTs - elapsed;
-    var diff = newRemainTs - s.newRemainTs;
 
     // check if we reached zero time
-    if( newRemainTs <= s.zeroTs ){
+    if ( newRemainTs <= s.zeroTs ) {
       this._stop();
       var t = this.state.zeroTs;
       this.setState({
         remainTs: t,
-        newRemainTs: t
+        newRemainTs: t,
       });
       this._beep();
-    }else{
+    } else {
       this.setState({newRemainTs: newRemainTs});
     }
   }
@@ -171,24 +168,24 @@ export default class Countdown extends React.Component {
   // because we are not suposed to set a getInitialState method on a plain js class
   _getInitialState = () => {
 
-      var zeroTs = Utils.getTimeStamp(0,0,0);
+    var zeroTs = Utils.getTimeStamp(0,0,0);
 
       // this.props.params are from url (see router)
-      var startHour = this.props.params.hour ? this.props.params.hour : 0;
-      var startMin = this.props.params.min ? this.props.params.min : 0;
-      var startSec = this.props.params.sec ? this.props.params.sec : 0;
+    var startHour = this.props.params.hour ? this.props.params.hour : 0;
+    var startMin = this.props.params.min ? this.props.params.min : 0;
+    var startSec = this.props.params.sec ? this.props.params.sec : 0;
 
-      var startTs = Utils.getTimeStamp(startHour,startMin,startSec);
+    var startTs = Utils.getTimeStamp(startHour,startMin,startSec);
 
-      var initialState = {
-        isStarted: false,
-        isEditing: false,
-        zeroTs: zeroTs,
-        remainTs: startTs,
-        newRemainTs: startTs
-      }
+    var initialState = {
+      isStarted: false,
+      isEditing: false,
+      zeroTs: zeroTs,
+      remainTs: startTs,
+      newRemainTs: startTs,
+    }
 
-      return initialState;
+    return initialState;
   }
 
 }

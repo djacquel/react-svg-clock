@@ -1,19 +1,19 @@
-import React, { PropTypes } from 'react';
-import NixieSelect from './NixieSelect';
+import React, { PropTypes } from "react";
+import NixieSelect from "./NixieSelect";
 
-const NixieEdit = ({remainTs, onChange, onSave, clockWith, order}) => {
+const NixieEdit = ({remainTs, onChange, onSave}) => {
 
-    var groups = ['hour', 'min', 'sec'];
-    var selects = [];
+  var groups = ["hour", "min", "sec"];
+  var selects = [];
 
     // creates select for each group
-    groups.forEach(
+  groups.forEach(
         (groupName, index) => {
-            selects.push(<NixieSelect groupName={groupName} index={index} remainTs={remainTs} onChange={onChange} key={index}/>);
+          selects.push(<NixieSelect groupName={groupName} index={index} remainTs={remainTs} onChange={onChange} key={index}/>);
         }
     )
 
-    return(
+  return (
         <form>
             {selects}
             <button type="submit" onClick={onSave}>Save</button>
@@ -22,7 +22,7 @@ const NixieEdit = ({remainTs, onChange, onSave, clockWith, order}) => {
 }
 
 NixieEdit.PropTypes = {
-    remainTs: PropTypes.number.isRequired
+  remainTs: PropTypes.number.isRequired,
 }
 
 export default NixieEdit;
