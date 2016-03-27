@@ -178,7 +178,13 @@ export default class Countdown extends React.Component {
   _getInitialState = () => {
 
       var zeroTs = Utils.getTimeStamp(0,0,0);
-      var startTs = Utils.getTimeStamp(0,52,0);
+
+      // this.props.params are from url (see router)
+      var startHour = this.props.params.hour ? this.props.params.hour : 0;
+      var startMin = this.props.params.min ? this.props.params.min : 0;
+      var startSec = this.props.params.sec ? this.props.params.sec : 0;
+
+      var startTs = Utils.getTimeStamp(startHour,startMin,startSec);
 
       var initialState = {
         isStarted: false,

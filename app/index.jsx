@@ -2,7 +2,7 @@ import './clock.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import { Router, Route, hashHistory, IndexRedirect } from 'react-router';
 
 import App from './components/App.jsx';
 import Clock from './components/Clock.jsx';
@@ -13,9 +13,10 @@ import About from './components/About.jsx';
 ReactDOM.render(
     <Router history={hashHistory}>
         <Route path="/" component={App}>
-            <IndexRoute component={Clock} />
+            <IndexRedirect to="/clock" />
+            <Route path="/clock" component={Clock}/>
             <Route path="/chrono" component={Chrono}/>
-            <Route path="/countdown" component={Countdown}/>
+            <Route path="/countdown(/:hour)(/:min)(/:sec)" component={Countdown}/>
             <Route path="/about" component={About}/>
             <Route path="*" component={Clock}/>
         </Route>
