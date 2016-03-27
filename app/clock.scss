@@ -16,7 +16,6 @@ a{
       color: yellow;
       border-bottom: 1px solid yellow;
   }
-
 }
 
 ul{
@@ -27,6 +26,7 @@ li{
   display: inline;
   padding: 10px;
 }
+
 #app{
   width: 100%;
   background: black;
@@ -111,17 +111,25 @@ text{
 }
 
 // nixie styles
-.chrono{
+.countdown{
 
-  border: 1px solid #ddd;
+  border: none;
   width: 100%;
-  height: 500px;
+  height: auto;
   stroke-width: 1px;
 
   .nixieBackground{
     stroke-width: 1px;
     stroke: none;
     stroke-opacity: 1;
+  }
+
+  .nixies{
+
+  }
+
+  .nixie{
+
   }
 
   .digit{
