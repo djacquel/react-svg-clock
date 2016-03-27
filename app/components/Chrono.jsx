@@ -78,16 +78,10 @@ export default class Chrono extends React.Component {
     }
   }
 
-  setTime = (event) => {
-    console.log('setTime');
-  }
-
   lapReset = (event) => {
     if ( this.state.isStarted == false ){
-      console.log("RESET");
       this.reset();
     }else if( this.state.isStarted == true ){
-      console.log("LAP");
       var lapNumber = this.state.laps.length;
       this.setState({
         laps: this.state.laps.concat([{
@@ -100,14 +94,11 @@ export default class Chrono extends React.Component {
 
   tick = () => {
     var timeTs = this.state.timeTs;
-    console.log ("Thick !" + timeTs);
     var startTs = this.state.startTs;
     var now = new Date();
     var nowTs = now.getTime();
-    //console.log("timeTs = " + timeTs +" startTs = " + startTs + " nowTs = " + nowTs);
     var elapsed = nowTs - startTs;
     var newTimeTs = timeTs + elapsed;
-    //console.log("elapsed = " + elapsed + " newTime = " + newTime);
     this.setState({newTimeTs: newTimeTs});
   }
 
@@ -127,7 +118,6 @@ export default class Chrono extends React.Component {
  }
 
   reset = () => {
-    console.log("RESET");
     this.setState( this._getInitialState() );
   }
 
