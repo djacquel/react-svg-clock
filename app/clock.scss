@@ -11,10 +11,12 @@ a{
   text-decoration: none;
   border-bottom: 1px dotted #ddd;
 
-  &:hover{
+  &:hover,
+  &.active{
       color: yellow;
       border-bottom: 1px solid yellow;
   }
+
 }
 
 ul{
@@ -26,7 +28,7 @@ li{
   padding: 10px;
 }
 #app{
-  width: 100%
+  width: 100%;
 }
 
 .button{
@@ -110,7 +112,7 @@ text{
 // nixie styles
 .chrono{
 
-  border: none;
+  border: 1px solid #ddd;
   width: 100%;
   height: 500px;
   stroke-width: 1px;

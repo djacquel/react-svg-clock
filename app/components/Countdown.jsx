@@ -41,7 +41,6 @@ export default class Countdown extends React.Component {
 
     return (
     <div>
-      <TopMenu />
       <h2>Countdown with <a href="https://fr.wikipedia.org/wiki/Tube_Nixie">Nixies</a></h2>
       { this.state.isEditing ?
           <NixieEdit remainTs={this.state.remainTs} onChange={this.editTime} onSave={this.setSaveTime} clockWith={clockWith} order='1' />

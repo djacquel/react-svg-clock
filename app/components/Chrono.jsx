@@ -36,7 +36,6 @@ export default class Chrono extends React.Component {
 
     return (
     <div>
-      <TopMenu />
       <h2>Chrono</h2>
       <svg viewBox={viewBox} className="clock">
         <g id="clock" transform={'translate(' + centerOffset + ',' + centerOffset + ')'}>
