@@ -20,6 +20,5 @@ ReactDOM.render(
             <Route path="/about" component={About}/>
             <Route path="*" component={Clock}/>
         </Route>
-
     </Router>, document.getElementById("app")
 );
