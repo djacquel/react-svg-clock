@@ -13,16 +13,12 @@ export default class Countdown extends React.Component {
 
   static defaultProps = {
     svgWidth: 450,
-    svgHeight: 250,
-    clockMargin: 0,
-    withTenth: true
+    svgHeight: 250
   }
 
   static propTypes = {
     svgWidth: React.PropTypes.number,
-    svgHeight: React.PropTypes.number,
-    clockMargin: React.PropTypes.number,
-    withTenth: React.PropTypes.bool
+    svgHeight: React.PropTypes.number
   }
 
   // keep track of setInterval in order to clearInterval
@@ -37,9 +33,7 @@ export default class Countdown extends React.Component {
     var p = this.props;
     var newRemainTs = this.state.newRemainTs;
     var viewBox = '0 0 ' + p.svgWidth + ' ' + p.svgHeight;
-
-    var clockMargin = p.clockMargin;
-    var clockWith = p.svgWidth - (clockMargin*2);
+    var clockWith = p.svgWidth;
 
     return (
     <div>
@@ -48,10 +42,9 @@ export default class Countdown extends React.Component {
           :
           null
       }
-      <svg viewBox={viewBox} className="chrono">
-        <g id="clock" transform={'translate(' + clockMargin + ',' + clockMargin + ')'}>
+      <svg viewBox={viewBox} className="countdown">
+        <g id="clock">
           <NixieDefs clockWidth={clockWith} />
-          <NixieBackground clockWidth={clockWith} />
           <NixieNixies clockWidth={clockWith} newRemainTs={newRemainTs} />
           { this.state.isEditing ?
               null
