@@ -5,9 +5,24 @@ import Utils from '../../libs/Utils';
 
 const NixieNixies = ({clockWidth, newRemainTs}) => {
 
-    var nixieWith      = 50;
-    var separatorWidth = 10;
-    var gutter         = 0;
+    console.log("clockWidth " + clockWidth);
+
+    var nixieOriginalWidth = 50;
+    var separatorOriginalWidth = 14;
+
+    var originalClockWidth = 7*nixieOriginalWidth + 3*separatorOriginalWidth;
+
+    console.log("originalClockWidth " + originalClockWidth );
+
+    var scaling = (clockWidth/originalClockWidth).toFixed(2);
+    console.log("scaling " + scaling );
+
+    var nixieWidth = nixieOriginalWidth * scaling;
+    console.log("nixieWidth " + nixieWidth );
+
+    var separatorWidth = separatorOriginalWidth * scaling;
+    console.log("separatorWidth " + separatorWidth );
+
     var elementPositionX = 0;
 
     // get HH:MM:SS string
@@ -21,17 +36,14 @@ const NixieNixies = ({clockWidth, newRemainTs}) => {
         var type;
         var elementIndex = i+1;
         var elementKey;
-        // console.log(i + "= " + code + " (elementIndex = " + elementIndex + ")");
+        console.log(i + "= " + code + " (elementPositionX = " + elementPositionX + ")");
 
         if ( isNaN(code) ) {
-            nixiesArr.push(<NixieSeparator key={elementIndex} elementPositionX={elementPositionX} />);
-            elementPositionX += (gutter*2 + separatorWidth);
+            nixiesArr.push(<NixieSeparator key={elementIndex} elementPositionX={elementPositionX} scaling={scaling} />);
+            elementPositionX += separatorWidth;
         } else {
-            nixiesArr.push(<Nixie key={elementIndex} digit={code} elementPositionX={elementPositionX} />);
-            elementPositionX += nixieWith;
-            if (elementIndex % 3 == 2) {
-                elementPositionX += gutter;
-            }
+            nixiesArr.push(<Nixie key={elementIndex} digit={code} elementPositionX={elementPositionX} scaling={scaling} />);
+            elementPositionX += nixieWidth;
         }
     }
 
@@ -44,7 +56,6 @@ const NixieNixies = ({clockWidth, newRemainTs}) => {
 
 NixieNixies.PropTypes = {
     clockWidth: PropTypes.number.isRequired,
-    withTenth: PropTypes.bool.isRequired,
     newRemainTs: PropTypes.number.isRequired
 }
 

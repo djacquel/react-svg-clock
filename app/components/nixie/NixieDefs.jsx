@@ -34,8 +34,8 @@ const NixiesDefs = ({clockWidth}) => (
     <path d="M 41,38 C -0.36,65 -8.7,3.6 24,3.6 49,3.6 48,62 19,74" id="d9" />
 
     <g id="separator">
-      <path d="M 5,20 5,30" className='glowing' />
-      <path d="M 5,50 5,60" className='glowing' />
+      <path d="M 7,20 7,30" className='glowing' />
+      <path d="M 7,50 7,60" className='glowing' />
     </g>
 
     <rect fill="url(#gridPattern)" x="0" y="0" width="47" height="80" id="grid" />
