@@ -36,7 +36,6 @@ export default class Clock extends React.Component {
 
     return (
     <div>
-      <h2>Clock</h2>
       <svg viewBox={viewBox} className="clock">
         <g id="clock" transform={'translate(' + centerOffset + ',' + centerOffset + ')'}>
           <ClockDefs clockRadius={p.clockRadius} />

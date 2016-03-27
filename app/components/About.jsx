@@ -3,7 +3,7 @@ import TopMenu from './common/TopMenu';
 
 const About = () => (
 <div>
-<h2>About</h2>
+<p>Made with React and SVG</p>
 </div>
 );
 
