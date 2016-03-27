@@ -5,29 +5,17 @@ import Utils from '../../libs/Utils';
 
 const NixieNixies = ({clockWidth, newRemainTs}) => {
 
-    console.log("clockWidth " + clockWidth);
-
     var nixieOriginalWidth = 50;
     var separatorOriginalWidth = 14;
-
     var originalClockWidth = 7*nixieOriginalWidth + 3*separatorOriginalWidth;
-
-    console.log("originalClockWidth " + originalClockWidth );
-
     var scaling = (clockWidth/originalClockWidth).toFixed(2);
-    console.log("scaling " + scaling );
-
     var nixieWidth = nixieOriginalWidth * scaling;
-    console.log("nixieWidth " + nixieWidth );
-
     var separatorWidth = separatorOriginalWidth * scaling;
-    console.log("separatorWidth " + separatorWidth );
 
     var elementPositionX = 0;
 
-    // get HH:MM:SS string
+    // get HH:MM:SS:T string
     var timeStr = Utils.getTimeString(newRemainTs);
-    // console.log("NixieNixies : timeStr = " + timeStr);
 
     var nixiesArr = [];
 
@@ -36,7 +24,6 @@ const NixieNixies = ({clockWidth, newRemainTs}) => {
         var type;
         var elementIndex = i+1;
         var elementKey;
-        console.log(i + "= " + code + " (elementPositionX = " + elementPositionX + ")");
 
         if ( isNaN(code) ) {
             nixiesArr.push(<NixieSeparator key={elementIndex} elementPositionX={elementPositionX} scaling={scaling} />);
