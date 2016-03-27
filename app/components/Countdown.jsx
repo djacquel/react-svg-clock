@@ -13,7 +13,8 @@ export default class Countdown extends React.Component {
 
   static defaultProps = {
     svgWidth: 450,
-    svgHeight: 250
+    svgHeight: 250,
+    tickInterval: 100
   }
 
   static propTypes = {
@@ -103,7 +104,6 @@ export default class Countdown extends React.Component {
     this.setState({
       isEditing: true
     });
-    console.log('setTime');
   }
 
   _saveTime = () => {
@@ -114,7 +114,6 @@ export default class Countdown extends React.Component {
     var [h, m, s] = currentTimeStr.split(":");
     var path = '/countdown/'+Number(h)+'/'+Number(m)+'/'+Number(s);
     browserHistory.push(path);
-    console.log('saveTime : path' + path);
   }
 
   editTime = (event) => {
@@ -146,12 +145,9 @@ export default class Countdown extends React.Component {
   tick = () => {
     var s = this.state;
     var now = new Date();
-    var nowTs = now.getTime();
-    var elapsed = nowTs - s.startTs;
+    var elapsed = now.getTime() - s.startTs;
     var newRemainTs = s.remainTs - elapsed;
-
     var diff = newRemainTs - s.newRemainTs;
-    console.log("thick " + s.newRemainTs + " dif =" + diff);
 
     // check if we reached zero time
     if( newRemainTs <= s.zeroTs ){
@@ -162,10 +158,9 @@ export default class Countdown extends React.Component {
         newRemainTs: t
       });
       this._beep();
-      console.log(this.state)
+    }else{
+      this.setState({newRemainTs: newRemainTs});
     }
-
-    this.setState({newRemainTs: newRemainTs});
   }
 
   _beep = () => {
