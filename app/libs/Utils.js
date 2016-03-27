@@ -67,7 +67,7 @@ var Utils = {
   },
 
   beep: function() {
-    var snd = new Audio("/bip.mp3");
+    var snd = new Audio("/assets/bip.mp3");
     snd.play();
   },
 
