@@ -3,8 +3,9 @@
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
-      "impliedStrict": true,
-      "jsx": true
+      "impliedStrict": false,
+      "jsx": true,
+      "experimentalObjectRestSpread": true
     },
     "sourceType": "module"
   },
@@ -15,17 +16,38 @@
   "plugins": [
     "react"
   ],
+  "parser": "babel-eslint",
   "rules": {
-    "no-console": 0,
-    "new-cap": 0,
-    "strict": 0,
-    "no-underscore-dangle": 0,
-    "no-use-before-define": 0,
-    "eol-last": 0,
-    "quotes": [2, "single"],
-    "jsx-quotes": 1,
-    "react/jsx-no-undef": 1,
+    "brace-style": [2, "1tbs"],
+    "comma-dangle": [2, "always-multiline"],
+    "consistent-return": 2,
+    "dot-notation": 2,
+    "eol-last": 2,
+    "eqeqeq": [2, "allow-null"],
+    "indent": [2, 2, {SwitchCase: 1}],
+    "jsx-quotes": [1, "prefer-double"],
+    "keyword-spacing": 2,
+    "no-console": 1,
+    "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 1}],
+    "no-multi-spaces": 2,
+    "no-restricted-syntax": [2, "WithStatement"],
+    "no-shadow": 2,
+    "no-trailing-spaces": 2,
+    "no-unused-expressions": 2,
+    "no-unused-vars": [2, {args: "none"}],
+    "no-use-before-define": 2,
+    "quotes": [2, "double"],
+    "space-before-blocks": 2,
+    "space-before-function-paren": [2, {anonymous: "never", named: "never"}],
+    "strict": [2, "global"],
+
+    "react/jsx-boolean-value": [2, "always"],
+    "react/jsx-no-undef": 2,
+    "react/jsx-indent-props": [2, 2],
     "react/jsx-uses-react": 1,
-    "react/jsx-uses-vars": 1
+    "react/jsx-uses-vars": 1,
+    "react/no-deprecated": [1, {"react": "0.12.0"}],
+    "react/self-closing-comp": 2,
+    "react/wrap-multilines": [2, {declaration: false, assignment: false}],
   }
 }
