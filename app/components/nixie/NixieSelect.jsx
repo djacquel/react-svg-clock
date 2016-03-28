@@ -21,11 +21,11 @@ const NixieSelect = ({groupName, index, remainTs, onChange}) => {
   }
 
   return (
-        <label>&nbsp;{groupName}&nbsp;
-        <select value={currentValue} onChange={onChange} key={index} id={groupName}>
-            {options}
-        </select>
-        </label>
+    <label>&nbsp;{groupName}&nbsp;
+      <select value={currentValue} onChange={onChange} key={index} id={groupName}>
+          {options}
+      </select>
+    </label>
   )
 }
 
