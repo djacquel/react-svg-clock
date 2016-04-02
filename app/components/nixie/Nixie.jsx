@@ -4,14 +4,14 @@ const Nixie = ({nixieId, digit, elementPositionX, scaling}) => {
 
     // digit order - cf https://en.wikipedia.org/wiki/Nixie_tube#Design
     // var mixiePattern = [6, 7, 5, 8, 4, 3, 9, 2, 0, 1];
-  var mixiePattern = [6, 7, 5, 8, 4, 3, 9, 2, 0, 1];
-  var digits = [];
+  const mixiePattern = [6, 7, 5, 8, 4, 3, 9, 2, 0, 1];
+  let digits = [];
 
   mixiePattern.forEach(
         (d, index) => {
-          var defId = "#d" + d;
-          var digitId = nixieId + "digit" + index;
-          var elClass = "digit";
+          let defId = "#d" + d;
+          let digitId = nixieId + "digit" + index;
+          let elClass = "digit";
           if (d === Number(digit)) {
             elClass += " glowing";
           }

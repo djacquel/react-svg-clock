@@ -75,7 +75,7 @@ text{
   stroke:none;
 
   .background{
-    stroke: white;
+    stroke: none;
   }
 
   .center{
@@ -84,24 +84,45 @@ text{
 
   .mark{
     stroke: none;
-    fill: yellow;
+    fill: white;
+
+   .inner{
+
+    }
+
+    .outer{
+      fill: green;
+    }
+
   }
+
 
   .hourPointer,
   .minPointer,
   .secPointer{
-    stroke: none;
+
     fill-opacity: 1;
+    fill: white;
+    stroke: none;
+
+    .outer{
+
+      stroke: none;
+    }
+
+    .inner{
+      fill: #EFEFBF;
+      stroke: none;
+    }
+
   }
 
   .hourPointer{
-    fill: white;
-    stroke: black;
+
   }
 
   .minPointer{
-    fill: white;
-    stroke: black;
+
   }
 
   .secPointer{

@@ -29,10 +29,10 @@ export default class Countdown extends React.Component {
   }
 
   render() {
-    var p = this.props;
-    var newRemainTs = this.state.newRemainTs;
-    var viewBox = "0 0 " + p.svgWidth + " " + p.svgHeight;
-    var clockWith = p.svgWidth;
+    const p = this.props;
+    const newRemainTs = this.state.newRemainTs;
+    const viewBox = "0 0 " + p.svgWidth + " " + p.svgHeight;
+    const clockWith = p.svgWidth;
 
     return (
     <div>
@@ -66,8 +66,8 @@ export default class Countdown extends React.Component {
   }
 
   _start = () => {
-    var start = new Date();
-    var startTs = start.getTime();
+    const start = new Date();
+    const startTs = start.getTime();
     this.setState({
       isStarted: true,
       startTs: startTs,
@@ -108,17 +108,17 @@ export default class Countdown extends React.Component {
     this.setState({
       isEditing: false,
     });
-    var currentTimeStr = Utils.getTimeString(this.state.remainTs);
-    var [h, m, s] = currentTimeStr.split(":");
-    var path = "/countdown/"+Number(h)+"/"+Number(m)+"/"+Number(s);
+    const currentTimeStr = Utils.getTimeString(this.state.remainTs);
+    const [h, m, s] = currentTimeStr.split(":");
+    const path = "/countdown/"+Number(h)+"/"+Number(m)+"/"+Number(s);
     browserHistory.push(path);
   }
 
   editTime = (event) => {
-    var editingGroup = event.target.id;
-    var newValue = event.target.value
-    var currentTimeStr = Utils.getTimeString(this.state.remainTs);
-    var [h, m, s] = currentTimeStr.split(":");
+    const editingGroup = event.target.id;
+    const newValue = event.target.value
+    const currentTimeStr = Utils.getTimeString(this.state.remainTs);
+    let [h, m, s] = currentTimeStr.split(":");
     switch (editingGroup) {
       case "hour":
         h = newValue;
@@ -131,7 +131,7 @@ export default class Countdown extends React.Component {
         break;
     }
 
-    var newTs = Utils.getTimeStamp( h, m, s, 0 );
+    const newTs = Utils.getTimeStamp( h, m, s, 0 );
 
     this.setState({
       remainTs : newTs,
@@ -141,15 +141,15 @@ export default class Countdown extends React.Component {
   }
 
   tick = () => {
-    var s = this.state;
-    var now = new Date();
-    var elapsed = now.getTime() - s.startTs;
-    var newRemainTs = s.remainTs - elapsed;
+    const s = this.state;
+    const now = new Date();
+    const elapsed = now.getTime() - s.startTs;
+    const newRemainTs = s.remainTs - elapsed;
 
     // check if we reached zero time
     if ( newRemainTs <= s.zeroTs ) {
       this._stop();
-      var t = this.state.zeroTs;
+      const t = this.state.zeroTs;
       this.setState({
         remainTs: t,
         newRemainTs: t,
@@ -168,16 +168,16 @@ export default class Countdown extends React.Component {
   // because we are not suposed to set a getInitialState method on a plain js class
   _getInitialState = () => {
 
-    var zeroTs = Utils.getTimeStamp(0,0,0);
+    const zeroTs = Utils.getTimeStamp(0,0,0);
 
       // this.props.params are from url (see router)
-    var startHour = this.props.params.hour ? this.props.params.hour : 0;
-    var startMin = this.props.params.min ? this.props.params.min : 0;
-    var startSec = this.props.params.sec ? this.props.params.sec : 0;
+    const startHour = this.props.params.hour ? this.props.params.hour : 0;
+    const startMin = this.props.params.min ? this.props.params.min : 0;
+    const startSec = this.props.params.sec ? this.props.params.sec : 0;
 
-    var startTs = Utils.getTimeStamp(startHour,startMin,startSec);
+    const startTs = Utils.getTimeStamp(startHour,startMin,startSec);
 
-    var initialState = {
+    const initialState = {
       isStarted: false,
       isEditing: false,
       zeroTs: zeroTs,

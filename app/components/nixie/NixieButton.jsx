@@ -2,8 +2,8 @@ import React, { PropTypes } from "react";
 
 const NixieButton = ({text, onClick, className, clockWith, order}) => {
 
-  var yButton = 110 + 50*(order-1);
-  var ytext = yButton + 25;
+  const yButton = 110 + 50*(order-1);
+  const ytext = yButton + 25;
 
   return (
         <g className="buttonGroup" onClick={onClick} >

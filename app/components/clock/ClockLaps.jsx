@@ -6,9 +6,9 @@ const ClockLaps = ({laps}) => {
         <ul>
         {laps.map( lap => {
 
-          var d = new Date(lap.ts);
-          var tenth = d.getMilliseconds() / 100;
-          var dStr = ("0" + d.getHours()).slice(-2) + ":"
+          const d = new Date(lap.ts);
+          const tenth = d.getMilliseconds() / 100;
+          const dStr = ("0" + d.getHours()).slice(-2) + ":"
                     + ("0" + d.getMinutes()).slice(-2) + ":"
                     + ("0" + d.getSeconds()).slice(-2) + ":"
                     + (Math.round(tenth));

@@ -30,12 +30,12 @@ export default class Chrono extends React.Component {
   }
 
   render() {
-    var p = this.props;
-    var timeTs = this.state.newTimeTs;
+    const p = this.props;
+    const timeTs = this.state.newTimeTs;
 
-    var viewBox = "0 0 " + p.svgWidth + " " + p.svgHeight;
-    var clockDiameter = p.clockRadius * 2;
-    var centerOffset = (p.svgWidth - clockDiameter)/2;
+    const viewBox = "0 0 " + p.svgWidth + " " + p.svgHeight;
+    const clockDiameter = p.clockRadius * 2;
+    const centerOffset = (p.svgWidth - clockDiameter)/2;
 
     return (
     <div>
@@ -62,8 +62,8 @@ export default class Chrono extends React.Component {
 
   startStop = () => {
     if ( this.state.isStarted === false ) {
-      var start = new Date();
-      var startTs = start.getTime();
+      const start = new Date();
+      const startTs = start.getTime();
       this.setState({
         isStarted: !this.state.isStarted,
         startTs: startTs,
@@ -82,10 +82,11 @@ export default class Chrono extends React.Component {
   }
 
   lapReset = () => {
+    let lapNumber
     if ( this.state.isStarted === false ) {
       this.reset();
     } else if ( this.state.isStarted === true ) {
-      var lapNumber = this.state.laps.length;
+      lapNumber = this.state.laps.length;
       this.setState({
         laps: this.state.laps.concat([{
           id: ++lapNumber,
@@ -96,12 +97,12 @@ export default class Chrono extends React.Component {
   }
 
   tick = () => {
-    var timeTs = this.state.timeTs;
-    var startTs = this.state.startTs;
-    var now = new Date();
-    var nowTs = now.getTime();
-    var elapsed = nowTs - startTs;
-    var newTimeTs = timeTs + elapsed;
+    const timeTs = this.state.timeTs;
+    const startTs = this.state.startTs;
+    const now = new Date();
+    const nowTs = now.getTime();
+    const elapsed = nowTs - startTs;
+    const newTimeTs = timeTs + elapsed;
     this.setState({newTimeTs: newTimeTs});
   }
 
@@ -109,9 +110,9 @@ export default class Chrono extends React.Component {
  // because we are not suposed to set a getInitialState method on a plain js class
   _getInitialState = () => {
     // building a 00:00:00 date
-    var zero = new Date(1970, 1, 1, 0, 0, 0, 0);
-    var zeroTs = zero.getTime()
-    var initialState = {
+    const zero = new Date(1970, 1, 1, 0, 0, 0, 0);
+    const zeroTs = zero.getTime()
+    const initialState = {
       isStarted: false,
       laps: [],
       timeTs: zeroTs,

@@ -5,23 +5,26 @@ import Utils from "../../libs/Utils";
 
 const NixieNixies = ({clockWidth, newRemainTs}) => {
 
-  var nixieOriginalWidth = 50;
-  var separatorOriginalWidth = 14;
-  var originalClockWidth = 7*nixieOriginalWidth + 3*separatorOriginalWidth;
-  var scaling = (clockWidth/originalClockWidth).toFixed(2);
-  var nixieWidth = nixieOriginalWidth * scaling;
-  var separatorWidth = separatorOriginalWidth * scaling;
+  const nixieOriginalWidth = 50;
+  const separatorOriginalWidth = 14;
+  const originalClockWidth = 7*nixieOriginalWidth + 3*separatorOriginalWidth;
+  const scaling = (clockWidth/originalClockWidth).toFixed(2);
+  const nixieWidth = nixieOriginalWidth * scaling;
+  const separatorWidth = separatorOriginalWidth * scaling;
 
-  var elementPositionX = 0;
+  let elementPositionX = 0;
 
     // get HH:MM:SS:T string
-  var timeStr = Utils.getTimeString(newRemainTs);
+  const timeStr = Utils.getTimeString(newRemainTs);
 
-  var nixiesArr = [];
+  let nixiesArr = [];
 
-  for (var i = 0; i < timeStr.length; i++) {
-    var code = timeStr.charAt(i);
-    var elementIndex = i+1;
+  let code
+  let elementIndex
+
+  for (let i = 0; i < timeStr.length; i++) {
+    code = timeStr.charAt(i);
+    elementIndex = i+1;
 
     if ( isNaN(code) ) {
       nixiesArr.push(<NixieSeparator key={elementIndex} elementPositionX={elementPositionX} scaling={scaling} />);

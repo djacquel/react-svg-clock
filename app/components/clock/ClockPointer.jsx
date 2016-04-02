@@ -3,7 +3,7 @@ import Utils from "../../libs/Utils";
 
 const ClockPointer = ({type, timeTs, clockRadius}) => {
 
-  var rotation = Utils.getRotation( timeTs, type );
+  const rotation = Utils.getRotation( timeTs, type );
 
   return (
         <use xlinkHref={"#" + type + "Pointer"}

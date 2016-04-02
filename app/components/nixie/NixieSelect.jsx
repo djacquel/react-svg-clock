@@ -4,17 +4,17 @@ import Utils from "../../libs/Utils";
 const NixieSelect = ({groupName, index, remainTs, onChange}) => {
 
     // creates a time array [ "12", "34", "56" ] representing hour, min and sec
-  var timeStr = Utils.getTimeString(remainTs, false).split(":");
+  const timeStr = Utils.getTimeString(remainTs, false).split(":");
 
     // get the current value for the group
     // use the passed index
-  var currentValue = timeStr[index];
-  var optionsEnd = groupName === "hour" ? 23 : 59;
-  var options = [];
+  const currentValue = timeStr[index];
+  const optionsEnd = groupName === "hour" ? 23 : 59;
+  const options = [];
 
     // creates list of options for the group
-  for (var i = 0; i <= optionsEnd; i++) {
-    var text = i < 10 ? "0"+i : ""+i; // ""+i casts i to a string
+  for (let i = 0; i <= optionsEnd; i++) {
+    let text = i < 10 ? "0"+i : ""+i; // ""+i casts i to a string
     options.push(
             <option value={text} key={i}>{text}</option>
         );

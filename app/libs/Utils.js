@@ -2,17 +2,17 @@
  * Utils
  *****************************/
 
-var Utils = {
+const Utils = {
 
   getRotation: function( timeTs, type ) {
 
-    var time = new Date(timeTs);
-    var hour = time.getHours();
-    var min = time.getMinutes();
-    var sec = time.getSeconds();
+    const time = new Date(timeTs);
+    const hour = time.getHours();
+    const min = time.getMinutes();
+    const sec = time.getSeconds();
 
-    var oneHourRotation, oneMinuteRotation, oneSecRotation, oneMilRotation,
-      rotHour, rotMin, rotSec, rotMil, rotation;
+    let oneHourRotation, oneMinuteRotation, oneSecRotation, oneMilRotation,
+      rotHour, rotMin, rotSec, rotMil, rotation, mil;
 
     switch (type) {
       case "hour":
@@ -32,7 +32,7 @@ var Utils = {
         rotation = rotMin + rotSec;
         break;
       case "sec":
-        var mil = time.getMilliseconds();
+        mil = time.getMilliseconds();
         oneSecRotation = 360/60;
         oneMilRotation = oneSecRotation / 1000;
         rotSec = oneSecRotation * sec;
@@ -46,7 +46,7 @@ var Utils = {
   // returns a timestamp for a given hour today
   // timestamp value depends on the computer"s TZ settings
   getTimeStamp: function( h=0, m=0, s=0, ms=0 ) {
-    var date = new Date();
+    const date = new Date();
     date.setHours(h,m,s,ms);
     return date.getTime();
   },
@@ -56,18 +56,18 @@ var Utils = {
   // if "tenth = false" return a string with no tenth HH:MM:SS
   getTimeString: function( timestamp, tenth = true ) {
 
-    var time = new Date(timestamp);
-    var timeStr = time.toTimeString().slice(0, 8);
+    const time = new Date(timestamp);
+    let timeStr = time.toTimeString().slice(0, 8);
 
     if (tenth === true) {
-      var tenthStr = Math.floor(time.getMilliseconds()/100);
+      const tenthStr = Math.floor(time.getMilliseconds()/100);
       timeStr = timeStr + ":" + tenthStr;
     }
     return timeStr;
   },
 
   beep: function() {
-    var snd = new Audio("/assets/bip.mp3");
+    const snd = new Audio("/assets/bip.mp3");
     snd.play();
   },
 

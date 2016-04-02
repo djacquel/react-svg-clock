@@ -28,12 +28,12 @@ export default class Clock extends React.Component {
   }
 
   render() {
-    var p = this.props;
-    var timeTs = this.state.timeTs;
+    const p = this.props;
+    const timeTs = this.state.timeTs;
 
-    var viewBox = "0 0 " + p.svgWidth + " " + p.svgHeight;
-    var clockDiameter = p.clockRadius * 2;
-    var centerOffset = (p.svgWidth - clockDiameter)/2;
+    const viewBox = "0 0 " + p.svgWidth + " " + p.svgHeight;
+    const clockDiameter = p.clockRadius * 2;
+    const centerOffset = (p.svgWidth - clockDiameter)/2;
 
     return (
     <div>
@@ -62,9 +62,9 @@ export default class Clock extends React.Component {
   // not getInitialState but _getInitialState
   // because we are not suposed to set such a method on a plain js class
   _getInitialState = () => {
-    var time = new Date();
-    var timeTs = time.getTime()
-    var initialState = {
+    const time = new Date();
+    const timeTs = time.getTime()
+    const initialState = {
       timeTs: timeTs,
     }
     return initialState;
@@ -79,8 +79,8 @@ export default class Clock extends React.Component {
   }
 
   tick = () => {
-    var time = new Date();
-    var timeTs = time.getTime();
+    const time = new Date();
+    const timeTs = time.getTime();
     this.setState({ timeTs: timeTs });
   }
 

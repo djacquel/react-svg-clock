@@ -3,8 +3,8 @@ import NixieSelect from "./NixieSelect";
 
 const NixieEdit = ({remainTs, onChange, onSave}) => {
 
-  var groups = ["hour", "min", "sec"];
-  var selects = [];
+  const groups = ["hour", "min", "sec"];
+  let selects = [];
 
     // creates select for each group
   groups.forEach(
