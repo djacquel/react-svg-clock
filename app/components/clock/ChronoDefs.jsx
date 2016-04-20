@@ -6,8 +6,8 @@ const ClockDefs = ({clockRadius=75}) => (
       <circle r="1" cy={clockRadius} cx={clockRadius} id="clockCenter" className="center" />
 
       <g className="mark quarterMark" id="hourMark">
-        <rect x={clockRadius-2} y="1" rx="0" ry="0" height="12" width="4" className="outer" />
-        <rect x={clockRadius-1} y="2" rx="0" ry="0" height="10" width="2" className="inner" />
+        <rect x={clockRadius-2} y="1" rx="0" ry="0" height="6" width="4" className="outer" />
+        <rect x={clockRadius-1} y="2" rx="0" ry="0" height="4" width="2" className="inner" />
       </g>
 
       <g className="mark quarterMark" id="quarterMark">
@@ -15,7 +15,7 @@ const ClockDefs = ({clockRadius=75}) => (
         <rect x={clockRadius-1} y="2" rx="0" ry="0" height="14" width="2" className="inner" />
       </g>
 
-      <rect x={clockRadius-1} y="2" rx="0" ry="0" height="5" width="2" id="mark" className="mark" />
+      <rect x={clockRadius-1} y="2" rx="0" ry="0" height="2" width="2" id="mark" className="mark" />
 
       <g id="hourPointer" className="hourPointer">
         <rect x={clockRadius-2} y="25" rx="0" ry="0" height={clockRadius-20} width="4" className="outer" />

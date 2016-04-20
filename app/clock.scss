@@ -64,7 +64,8 @@ text{
 
 }
 
-.clock{
+.clock,
+.chrono{
 
   border: none;
   background: black;
@@ -130,6 +131,13 @@ text{
   }
 
 }
+
+.chrono{
+  width: 600px;
+  height: 600px;
+}
+
+
 
 // nixie styles
 .countdown{

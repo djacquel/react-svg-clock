@@ -1,5 +1,5 @@
 import React from "react";
-import ClockDefs from "./clock/ClockDefs";
+import ChronoDefs from "./clock/ChronoDefs";
 import ClockBackground from "./clock/ClockBackground";
 import ClockPointer from "./clock/ClockPointer";
 import ClockButton from "./clock/ClockButton";
@@ -9,7 +9,7 @@ export default class Chrono extends React.Component {
 
   static defaultProps = {
     svgWidth: 200,
-    svgHeight: 280,
+    svgHeight: 300,
     clockRadius: 75,
   }
 
@@ -39,9 +39,9 @@ export default class Chrono extends React.Component {
 
     return (
     <div>
-      <svg viewBox={viewBox} className="clock">
+      <svg viewBox={viewBox} className="chrono">
         <g id="clock" transform={"translate(" + centerOffset + "," + centerOffset + ")"}>
-          <ClockDefs clockRadius={p.clockRadius} />
+          <ChronoDefs clockRadius={p.clockRadius} />
           <ClockBackground clockRadius={p.clockRadius} />
           <ClockPointer type="hour" timeTs={timeTs} clockRadius={p.clockRadius} />
           <ClockPointer type="min" timeTs={timeTs} clockRadius={p.clockRadius} />

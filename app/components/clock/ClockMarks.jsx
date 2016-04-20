@@ -11,8 +11,8 @@ const ClockMarks = ({clockRadius}) => {
   let rotation;
 
   for (let i = secStart; i <= secEnd; i++) {
-    // markType = i%5 === 0 ? (i%15 === 0 ? "quarterMark" : "hourMark") : "mark";
-    markType = i%5 === 0 ? (i%15 === 0 ? "quarterMark" : "hourMark") : "NONE";
+    markType = i%5 === 0 ? (i%15 === 0 ? "quarterMark" : "hourMark") : "mark";
+    // markType = i%5 === 0 ? (i%15 === 0 ? "quarterMark" : "hourMark") : "NONE";
     rotation = i * 6;
 
     if (markType !== "NONE") {
